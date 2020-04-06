@@ -1,0 +1,59 @@
+<div class="">
+    <div class="col-9 offset-3">
+        <h4 class="text-primary title">Background</h4>
+        <div class="accordion" id="accordion1">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                            aria-controls="collapseOne">
+                            Job Title at the time of interview
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseOne" class="collapse"  v-bind:class="{ show: printing }"  aria-labelledby="headingOne" data-parent="#accordion1">
+                    <div class="card-body">
+                        <p>{{selectedJob.Name.JobTitle}} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                            v-on:click="viewArticle(selectedJob)">
+                            Work History
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse"  v-bind:class="{ show: printing }"  aria-labelledby="headingTwo" data-parent="#accordion1">
+                    <div class="card-body">
+                        <blog-articles :dates-articles='datesArticles' v-if="isDataLoaded"></blog-articles>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                            v-on:click="viewEdu(selectedJob)">
+                            Education
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseThree" class="collapse"  v-bind:class="{ show: printing }"  aria-labelledby="headingThree" data-parent="#accordion1">
+                    <div class="card-body">
+                        <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2"></blog-articles2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" v-if="selectedJob && !showApplication">
+            <div class="text-center alert alert-pimary" v-if="printing">Printing Document Please Wait...</div>
+            <button style="display: block;margin: auto;" class="btn btn-primary" @click="HTMLToPdfOne()">Download As
+                PDF</button>
+        </div>

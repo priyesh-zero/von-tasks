@@ -1,0 +1,3563 @@
+
+
+
+<!DOCTYPE html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+
+<style>
+    	.dropdown, .dropleft, .dropright, .dropup{
+		position: inherit;
+	}
+	.dropdown-menu.show {
+		width: 100%;
+		background: #999;
+		padding: 0;
+		margin: 0;
+    	border-radius: 0;
+		border: none
+	}
+	.dropdown-menu.show {
+		display: inline-flex;
+	}
+	.dropdown-item {
+    	display: inline-block;
+		float: left;
+		width: auto;
+		color: #fff;
+		padding-top: 10px;
+    	padding-bottom: 10px;
+/*		color: #333;*/
+	}
+         .start {
+           width:141px;
+           padding: 20px;
+       }
+
+    .btn {
+        min-width: 200px;
+    }
+    .btn-secondary1 {
+    color: #fff;
+    background-color: #919ca7;
+    border-color: #6c757d;
+}
+
+.btn-secondary2 {
+    color: #fff;
+    background-color: #7d878f;
+    border-color: #6c757d;
+}
+
+
+.btn-secondary3 {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #5c6268;
+}
+
+.btn-secondary4 {
+    color: #fff;
+    background-color: #4a5055;
+    border-color: #6c757d;
+}
+
+	 .ms-dlgCloseBtnImg {
+        border-style: none !important;
+        max-width: inherit !important;
+    }
+
+    .ms-dlgTitleBtns {
+        margin-right: 0px;
+    }
+
+    .fake-underline{
+    text-decoration: underline;
+
+}
+                .circular-image {
+                                align-content: center;
+                                border-radius: 50%;
+                                width: 150px;
+                                height: 150px;
+                            }
+                    
+                            .accordion {
+    position:relative;
+    background-color:white;
+}
+
+.accordion > input {
+    display:block;
+    margin:0 0;
+    width:100%;
+    height:30px;
+    position:relative;
+    cursor:pointer;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+
+.accordion > label {
+    display:block;
+    font:bold 18px/30px Arial,Sans-Serif;
+    background-color:#a0aec0;
+    color:white;
+    margin:-30px 0 0 0;
+    padding:0 15px;
+}
+
+.accordion > div {
+    padding:10px 15px;
+    display:none;
+}
+
+.accordion > input:checked + label {
+    background-color:slateblue;
+}
+
+.accordion > input:checked + label + div {
+    display:block;
+}
+
+
+.accordion input[type="radio"]:checked + label i.icon::before{
+		transform: rotate(0deg);
+	}
+	i.icon{
+		position: relative;
+		margin-top: 10px;
+		width: 20px;
+		height: 20px;
+		margin-right: 25px;
+	}
+	i.icon::after{
+		content: "";
+		display: block;
+		width: 12px;
+		height: 3px;
+		background: #fff;
+		top: 10px;
+		left: 0;
+		position: absolute;
+	}
+	
+	i.icon::before{
+		content: "";
+		display: block;
+		width: 12px;
+		height: 3px;
+		background: #fff;
+		top: 10px;
+		left: 0;
+		transform: rotate(90deg);
+		position: absolute;
+		transition: all linear 0.2s;
+	}
+    .bs-example {
+      
+    }
+  
+
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.5/dist/vue-router.js"></script>
+</head>
+
+<body class="text-gray-700 bg-white" style="font-family: 'Source Sans Pro', sans-serif">
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <img src="" height="60" width="60">&nbsp;&nbsp;
+            <span class="font-semibold text-3xl tracking-tight"></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+             
+                <li class="nav-item active">
+                    <router-link to="/" class="nav-link">Home</router-link>
+                </li>
+                     
+                <li class="nav-item">
+                    <router-link to="/page3" class="nav-link"> Pre-Assessment</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/page2" class="nav-link">Post-Assessment</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/page1" class="nav-link">Results</router-link>
+                </li>
+      
+
+            </ul>
+            <div class="w-full lg:w-2/5 flex lg:justify-end">
+                <div class="mr-4 relative">
+
+                    <span class="flex items-center absolute pin-r pin-y mr-3"><i
+                            class="fa fa-search text-grey"></i></span>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <router-view></router-view>
+</div>
+	<!--Hero-->
+    <script type= "text/x-template" id="page1">
+
+        <div class="h-auto" style="background: linear-gradient(90deg, #646149 0%, #522223 100%)">
+    
+                <!-- Two columns -->
+                <div class="flex py-12 container mx-auto">
+                    <div class="pr-8">
+                        <h2 class="text-5xl font-bold mb-2 text-white">
+                                Newly 
+                        </h2>
+                        <h3 class="text-2xl text-gray-200">
+                            <p>Use this .</p>
+                        </h3>
+                    </div>
+                    <div>
+   
+                  
+                
+                    </div>
+              
+                </div>
+          
+        
+        
+          
+            
+        
+           
+        
+            <section style="background-color: #ffffff">
+                    <div class="container mx-auto px-6 text-center py-20">
+                        <h2 class="mb-6 text-4xl font-bold text-center text-black">
+                         Assessing Keys
+                        </h2>
+                        
+                        <h3 class="my-4 text-2xl text-black text-left">
+                            This  lets <br><br>
+                        </h3>
+                        <h3 class="my-4 text-2xl text-black text-center">  You will rate each capability on three dimensions
+                        </h3>
+                        <div class="w-full md:w-1/4">
+                
+    
+
+  
+                        </div>
+        
+                        <div class="container mx-auto ">
+                            
+                            <div class="flex flex-wrap">
+                                <div class="w-full md:w-1/3 px-2 mb-4">
+                                    <h4>Comp</h4>
+                                    <div class="">
+                                        <img src="" height="400" width="200">&nbsp;&nbsp;
+                                
+                                        <p class="text-gray-800 text-base px-6 mb-5 flex text-left">
+                                   
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 px-2 mb-4">
+
+                                    <h4>Conf</h4>
+                                    <div class="">
+                                        <img src="" height="400" width="200">&nbsp;&nbsp;
+                                        <p class="text-gray-800 text-base px-6 mb-5 flex text-left"><br>
+                                           
+                            
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 px-2 mb-4">
+                                    <h4>Cons</h4>
+                                    <div class="">
+                                        <img src="img/undraw_data_report_bi6l.png" height="400" width="200">&nbsp;&nbsp;
+                                        <p class="text-gray-800 text-base px-6 mb-5 flex  text-left">
+                                            how o
+                                   
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                
+        
+                        </div>
+           
+        
+                    
+                    </div>
+                </section>
+            <!-- Testimonials -->
+
+            <!--Call to Action-->
+    
+    
+        </div>
+    
+    </script>
+    
+<script type="text/template" id="page2">
+
+ 
+        <div>
+            <div class="flex">
+                <div class="w-1/5 p-6" style="background: #eee; min-height: 800px">
+                 <div class="mx-auto">
+             <div class="sidebar-image-holder">
+                     <div v-if="PictureUrl"  >
+                             <img   v-bind:src="PictureUrl" class="h-40 w-40 rounded-full  mx-auto justify-center items-center" />
+                     </div>
+                     <div v-else="doughboy" class="h-40 w-40 rounded-full mx-auto justify-center items-center ">
+                             <img  class="h-40 w-40 rounded-full mx-auto justify-center items-center"  v-bind:src="doughboy" />
+                             
+                     </div>
+                 </div>
+                     <div class="text-center">
+                             <h2 class="text-2lg">{{DisplayName}}</h2>
+                          <div class="text-purple-500">{{Title}}</div>
+                          <div class="text-purple-500">{{Department}}</div>
+                          <hr>
+                     <br><br>
+                     <div class="centered">
+                        <UL align="left"><LI>Build Relationships and Team  <span v-if="canShowCheckBox1">âœ…</span> </LI>
+                        
+                            <LI>Communicate Openly and Clearly <span v-if="canShowCheckBox2">âœ…</span> </LI>
+                            <LI>Deliver Results <span v-if="canShowCheckBox3">âœ…</span> </LI>
+                            <LI>Manage Performance <span v-if="canShowCheckBox4">âœ…</span> </LI>
+                            <LI>Act Strategically <span v-if="canShowCheckBox5">âœ…</span> </LI>
+              
+                        
+                        </UL>
+                       
+        </div>
+        </div></div>
+                </div>
+         
+        <div class="w-3/4 p-6">
+        
+            <h4>Post-Assessment Instructions:</h4>
+            <br>
+           <p>For the following new manager behaviors, rate your:</p>
+            <ul>
+            </p>
+              <li>Competence: How knowledgeable and skilled are you in the behavior</li>
+              <li>Confidence: How certain are you of your ability to perform the behavior today</li>
+              <li>Consistency: How often do you demonstrate the behavior</li>
+            </ul> 
+          Please click on the <i style="font-size:20px;" aria-hidden="true" class="fa fa-info-circle"></i> to learn more.</p>
+       
+          
+         
+        
+            <H2>Building Relationships and Team</H2>   
+            <p>Please select the corresponding rating for each</p>
+            <div class="bs-example">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Competence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Advanced Beginner
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1"> Mastered
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Confidence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Not Very Confident
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2"> Somewhat Confident
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Confident
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Very Confident
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Consistency</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Never
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Sometimes
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Frequently
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Always
+                    </label>
+                </div>
+    
+            </div>
+            <br>
+            <H2>Communicating Openly and Clearly</H2>
+            <p>Please select the corresponding rating for each</p>
+            <div class="bs-example2">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Competence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Advanced Beginner
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Mastered
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Confidence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Advanced Beginner
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Mastered
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Consistency</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Advanced Beginner
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                    </label>
+                </div>
+    
+            </div>
+    
+              
+                    </div>
+                </div>
+    
+    
+    
+    
+    
+          
+            <button id="save" v-on:click="generatePush()">Save</button>
+         </div>
+       
+        </div>
+        
+
+    
+        
+
+</script>
+
+<script type="text/template" id="page3">
+
+ 
+    <div>
+        <div class="flex">
+            <div class="w-1/5 p-6" style="background: #eee; min-height: 800px">
+             <div class="mx-auto">
+         <div class="sidebar-image-holder">
+                 <div v-if="PictureUrl"  >
+                         <img   v-bind:src="PictureUrl" class="h-40 w-40 rounded-full  mx-auto justify-center items-center" />
+                 </div>
+                 <div v-else="doughboy" class="h-40 w-40 rounded-full mx-auto justify-center items-center ">
+                         <img  class="h-40 w-40 rounded-full mx-auto justify-center items-center"  v-bind:src="doughboy" />
+                         
+                 </div>
+             </div>
+                 <div class="text-center">
+                         <h2 class="text-2lg">{{DisplayName}}</h2>
+                      <div class="text-purple-500">{{Title}}</div>
+                      <div class="text-purple-500">{{Department}}</div>
+                      <hr>
+                 <br><br>
+                 <div class="centered">
+                    <UL align="left"><LI>Build Relationships and Team  <span v-if="canShowCheckBox1">âœ…</span> </LI>
+                    
+                        <LI>Communicate Openly and Clearly <span v-if="canShowCheckBox2">âœ…</span> </LI>
+                        <LI>Deliver Results <span v-if="canShowCheckBox3">âœ…</span> </LI>
+                        <LI>Manage Performance <span v-if="canShowCheckBox4">âœ…</span> </LI>
+                        <LI>Act Strategically <span v-if="canShowCheckBox5">âœ…</span> </LI>
+         
+                    
+                    </UL>
+                   
+    </div>
+    </div></div>
+            </div>
+     
+    <div class="w-3/4 p-6">
+    
+
+        </ul> 
+      Please click on the <i style="font-size:20px;" aria-hidden="true" class="fa fa-info-circle"></i> to learn more.</p>
+     
+      
+     
+    
+        <H2>Building Relationships and Team</H2>
+     
+        <p>Please select the corresponding rating for each</p>
+
+        <div class="bs-example">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Competence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Advanced Beginner
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1"> Mastered
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Confidence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Not Very Confident
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2"> Somewhat Confident
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Confident
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Very Confident
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Consistency</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Never
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Sometimes
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Frequently
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Always
+                </label>
+            </div>
+
+        </div>
+        <br>
+        <H2>Communicating Openly and Clearly</H2>
+        <p>Please select the corresponding rating for each</p>
+        <div class="bs-example2">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Competence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Advanced Beginner
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Mastered
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Confidence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Advanced Beginner
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Mastered
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Consistency</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Advanced Beginner
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                </label>
+            </div>
+
+        </div>
+
+            <br>
+          
+
+
+
+      
+        <button class="btn-" id="save" v-on:click="generatePush()">Save</button>
+
+
+        
+     </div>
+
+    </div>
+    
+
+    
+    
+
+</script>
+
+
+<script type="text/x-template" id="page26">
+    <div class="container">
+<div id="hid" style="display:none;">
+    {{output}} <br><br>
+    {{outputy}} <br><br>
+   {{chartData}}
+</div>
+        <h2>Visual Assessment Results</h2><br><br>
+        <div class="row">
+          
+            
+                <div class="col-sm-4">
+               
+                <h4>Competence</h4>
+              
+                <line-chart :data="chartData" :curve="false" legend="bottom" :discrete="true" :colors="['#f15f2b', '#007AD9']"></line-chart>
+            
+              </div>
+              
+              <div class="col-sm-4">
+                      <h4>Confidence</h4>
+                    <line-chart :data="chartData1" :curve="false" legend="bottom" :discrete="true" :colors="['#f15f2b', '#007AD9']"></line-chart>
+              </div>
+              
+              <div class="col-sm-4">
+                          <h4>Consistency</h4>
+                        <line-chart :data="chartData2" :curve="false" legend="bottom" :discrete="true" :colors="['#f15f2b', '#007AD9']"></line-chart>
+            </div>
+   
+            </div>
+
+        </div>
+    </div>
+</script>
+<script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+<script src="https://unpkg.com/vue-chartkick@0.5.1"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+
+    const page2 = {
+        template:'#page2',
+        data: function data () {
+               return {
+                message:'',
+                selected: [],
+                    test: [],
+                    test2: [],
+                    test3: [],
+                    tasks:[],
+                    userId:0,
+                    listItemId:0,
+                      USERNAME:'',
+                      email:'',
+                      doughboy:'https://domain/sites/track/SiteAssets/img/doughboy.png',
+                       root: 'https://domain.com/sites/VLN',
+                       DisplayName: '',
+                       Department:'',
+                       PictureUrl: '',
+                       Title:'',
+                       isHidden: false,
+                       config: {
+                           domainRoot: 'https://DOMAIN.com/sites/VLN',
+                           listName: 'JOB'
+                       },
+                       UserProfileProperties: {
+                           results: [],
+                           PictureUrl: '',
+                           image: '',
+                        
+                         
+        
+                       },
+                       showModal: false,
+            showModalZ:false,
+            showModalZ2:false,
+            showModalZ3:false,
+            showModalZ4:false,
+            showModalZ5:false,
+            showModalZ6:false,
+            showModalZ7:false,
+            showModalZ8:false,
+            showModalZ9:false,
+           
+               }
+           },
+           methods:{
+            fixedEncodeURIComponent: function (src) {
+                               return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                   return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                               });
+                           },
+                   getUserProperty: function (userProfileProperties, propertyName) {
+                   var propertyValue = '';
+                   for (var i = 0; i < userProfileProperties.length - 1; i++) {
+                       if (userProfileProperties[i].Key === propertyName) {
+                           propertyValue = userProfileProperties[i].Value;
+                           break;
+                       }
+                   }
+                   return propertyValue;
+               },
+          
+        
+               getCurrentUser: function () {
+                    var vm = this;
+                    var __REQUESTDIGEST = '';
+                    $.ajax({
+                        url: 'https://domain.com/sites/track/' + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties",
+                        type: 'Get',
+                        headers: { accept: "application/json;odata=verbose" },
+                        success: function (data) {
+                            console.log(data);
+                            vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                            vm.DisplayName = data.d.DisplayName;
+                            vm.PictureUrl = data.d.PictureUrl;
+                            vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                            vm.AccountName = vm.getUserProperty(data.d.UserProfileProperties.results, "AccountName");
+                            vm.GetUserId();
+                        }
+                    })
+                },
+                GetUserId: function() {
+                    var vm = this;
+                    console.log(vm.AccountName)
+                    $.ajax({
+                        url: "https://adomain.com/sites/ALN/_api/web/siteusers(@v)?@v='" + encodeURIComponent("i:0#.w|" + vm.AccountName) + "'",
+                        method: "GET",
+                        headers: { "Accept": "application/json; odata=verbose" },
+                        success: function (data) {
+                            console.log("Received UserId" + data.d.Id);
+                            vm.userId = data.d.Id;
+
+                            $.ajax({
+                                url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items?$select=Id, Person/Id&$expand=Person/Id&$filter=Person/Id eq " + vm.userId,
+                                type: 'Get',
+                                headers: { accept: "application/json;odata=verbose" },
+                                success: function (data) {
+                                    if (data.d.results.length > 0)
+                                        vm.listItemId = data.d.results[0].Id;
+                                    console.log(vm.listItemId);
+
+                                }
+                            })
+
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                },
+                generatePush: function () {
+                    var message = {};
+                    $("[class^='bs-exampl']").each(function (setIndex, setItem) {
+                        var sets = $(setItem).find('[data-toggle]');
+                        var setName = sets.parent().prev().prev().text();
+                        message[setName] = [];
+                        sets.each(function (optionIndex, optionItem) {
+                            var optionSetName = $(optionItem).find('label:eq(0)').text();
+                            var optionString = '{"' + optionSetName + '":';
+                            var optionSelectedIndex = 0;
+                            $(optionItem).find('label').each(function (itemIndex, item) {
+                                if ($(item).is('.active'))
+                                    optionSelectedIndex = itemIndex;
+                            })
+                            if (optionSelectedIndex > 0) {
+                                optionString = optionString + optionSelectedIndex + '}';
+                                message[setName].push(JSON.parse(optionString));
+                            }
+                        });
+                    });
+                    console.log(message);
+                    alert("submission completed!")
+       
+                        var vm = this;
+                        $.ajax({
+                            url: vm.config.domainRoot + "/_api/contextinfo",
+                            method: "POST",
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            },
+                            success: function (data) {
+                                var __REQUESTDIGEST = data.d.GetContextWebInformation.FormDigestValue;
+
+                                var itemData = {
+                                    "__metadata": { "type": "SP.Data." + vm.config.listName + "ListItem" },
+                                    "scores": JSON.stringify(message),
+                                    "PersonId": vm.userId,
+                                };
+                                if (vm.listItemId > 0) {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items(" + vm.listItemId + ")",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose",
+                                            "IF-MATCH": "*",
+                                            "X-HTTP-Method": "MERGE"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+                                else {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+
+                            }
+                        })
+                    }
+           },
+
+        
+      
+           
+           
+           mounted: function mounted (){
+                     this.getCurrentUser();
+   
+        
+          
+                    },
+           };
+        
+
+
+    
+    const fourTemplate = {
+        template: '#page26',
+
+        data: function data() {
+            return {
+                output: {},
+                outputy: {},
+                DisplayName: '',
+            
+            //chart:[{"name":"Pre-Assessment","data":{"Build Relationships":3,"Communicate":3,"Deliver Results":3,"Manage...":1,"Act Strategically":4,"Develop Self and Others":3,"Faciliate Change":2,"Focus On..":3}},{"name":"Post Assessment","data":{"Build Relationships":7,"Communicate":5,"Deliver Results":4,"Manage...":9,"Act Strategically":5,"Develop Self and Others":7,"Faciliate Change":6,"Focus On..":10}}]
+            chartData:[{"name": "Pre-Assessment","data":{}},{"name":"Post-Assessment","data":{}}],
+            chartData1:[{"name": "Pre-Assessment","data":{}},{"name":"Post-Assessment","data":{}}],
+            chartData2:[{"name": "Pre-Assessment","data":{}},{"name":"Post-Assessment","data":{}}]
+          
+            
+        }
+    },
+        methods:{
+            
+            getCurrentUser: function () {
+                    var vm = this;
+                    var __REQUESTDIGEST = '';
+                    $.ajax({
+                        url: 'https://domain.com/sites/track/' + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties",
+                        type: 'Get',
+                        headers: { accept: "application/json;odata=verbose" },
+                        success: function (data) {
+                          
+                            vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                            vm.DisplayName = data.d.DisplayName;
+                            vm.PictureUrl = data.d.PictureUrl;
+                            vm.Email= data.d.Email;
+                            vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                            vm.AccountName = vm.getUserProperty(data.d.UserProfileProperties.results, "AccountName");
+                            console.log(vm.DisplayName);
+                            console.log(vm.Email);
+                            //vm.GetUserId();
+                        }
+                    })
+                },
+                GetUserId: function() {
+                    var vm = this;
+                    console.log(vm.AccountName)
+                    $.ajax({
+                        url: "https://domain.com/sites/ALN/_api/web/siteusers(@v)?@v='" + encodeURIComponent("i:0#.w|" + vm.AccountName) + "'",
+                        method: "GET",
+                        headers: { "Accept": "application/json; odata=verbose" },
+                        success: function (data) {
+                            console.log("Received UserId" + data.d.Id);
+                            vm.userId = data.d.Id;
+
+                            $.ajax({
+                                url:"https://domain.com/sites/track/_api/web/lists/getbytitle('" + vm.config.listName + "')/items?$select=Id, Person/Id&$expand=Person/Id&$filter=Person/Id eq " + vm.userId +'"',
+                                type: 'Get',
+                                headers: { accept: "application/json;odata=verbose" },
+                                success: function (data) {
+                                    if (data.d.results.length > 0)
+                                        vm.listItemId = data.d.results[0].Id;
+                                    console.log(vm.listItemId);
+
+                                }
+                            })
+
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                },
+           
+            fixedEncodeURIComponent: function (src) {
+                            return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                            });
+                        },
+				getUserProperty: function (userProfileProperties, propertyName) {
+				var propertyValue = '';
+				for (var i = 0; i < userProfileProperties.length - 1; i++) {
+					if (userProfileProperties[i].Key === propertyName) {
+						propertyValue = userProfileProperties[i].Value;
+						break;
+					}
+				}
+				return propertyValue;
+            },
+            
+                       
+            getPreAssessment: function() {
+            console.log("chartinfo");
+            var vm = this;
+            // vm.chart = [
+            //   {
+            //     name: "Pre-Assessment",
+            //     data: { "Build Relationships": 3, Communicate: 3, "Deliver Results": 3, Manage: 1, "Act Strategically": 4, "Develop Self and Others": 3, "Faciliate Change": 2, "Focus On": 3 }
+            //   }
+            // ];
+            // var vm = this;
+            $.ajax({
+              async: true,                                                                                    
+              //url: "https://domain.com/sites/VLN/_api/web/lists/getbytitle('JOB')/items?$filter=Person/Name eq " + vm.DisplayName, // URL to fetch data from sharepoint list
+              url:"https://domain.com/sites/VLN/_api/web/lists/getbytitle('JOB')/items?$select=Person/EMail,scores&$expand=Person",
+              method: "GET",
+              headers: {
+                accept: "application/json;odata=verbose", //It defines the Data format
+                "content-type": "application/json;odata=verbose" //It defines the content type as JSON
+              },
+              success: function(data) {
+                console.log("success", data.d.results);
+                var chart_data = data.d.results[0].scores;
+                vm.output = chart_data;
+
+                //or
+                var chart_data = JSON.parse(data.d.results[0].scores);
+               vm.output = chart_data;
+              vm.buildchart();
+              },
+              error: function(error) {
+                console.log(JSON.stringify(error));
+              }
+            });
+          },
+          getPostAssessment: function() {
+            console.log("chartinfo2");
+            var vm = this;
+            // vm.chart = [
+            //   {
+            //     name: "Pre-Assessment",
+            //     data: { "Build Relationships": 3, Communicate: 3, "Deliver Results": 3, Manage: 1, "Act Strategically": 4, "Develop Self and Others": 3, "Faciliate Change": 2, "Focus On": 3 }
+            //   }
+            // ];
+            // var vm = this;
+            $.ajax({
+              async: true,
+              url: "https://DOMAIN.com/sites/ALN/_api/web/lists/getbytitle('POST')/items?$select=Person/EMail,scores&$expand=Person", // URL to fetch data from sharepoint list
+              method: "GET",
+              headers: {
+                accept: "application/json;odata=verbose", //It defines the Data format
+                "content-type": "application/json;odata=verbose" //It defines the content type as JSON
+              },
+              success: function(data) {
+                console.log("success", data.d.results);
+                var chart_data2 = data.d.results[0].scores;
+                vm.outputy = chart_data2;
+
+                //or
+                var chart_data2 = JSON.parse(data.d.results[0].scores);
+               vm.outputy = chart_data2;
+              vm.buildchart2();
+              },
+              error: function(error) {
+                console.log(JSON.stringify(error));
+              }
+            });
+          },
+
+          buildchart: function(){
+console.log("build chart");
+const vm = this;
+
+//Competence
+      vm.output["Building Relationships and Team"].forEach(function(build) {
+          console.log("building..")
+        if (build.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Building Relationships and Team"] = build["Competence"]
+        }else if (build.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Building Relationships and Team"] = build["Confidence"]
+        } else if (build.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Building Relationships and Team"] = build["Consistency"]
+        }
+    })
+ 
+
+    
+    vm.output["Communicating Openly and Clearly"].forEach(function(comunicate) {
+          console.log("communicate..")
+        if (comunicate.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Communicate Openly and Clearly"] = comunicate["Competence"]
+        } else if (comunicate.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Comumnicate Openly and Clearly"] = comunicate["Confidence"]
+        }else if (comunicate.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Communicate Openly and Clearly"] = comunicate["Consistency"]
+        }
+    })
+
+        
+    vm.output["Deliver Results"].forEach(function(deliver) {
+          console.log("deliver..")
+        if (deliver.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Deliver Results"] = deliver["Competence"]
+        }else if (deliver.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Deliver Results"] = deliver["Confidence"]
+        }else if (deliver.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Deliver Results"] = deliver["Consistency"]
+        }
+    })
+
+    vm.output["Act Strategically"].forEach(function(act) {
+          console.log("Act Strategically..")
+        if (act.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Act Strategically"] = act["Competence"]
+        } else if (act.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Act Strategically"] = act["Confidence"]
+        }else if (act.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Act Strategically"] = act["Consistency"]
+        }
+    })
+
+    vm.output["Develop Self and Others"].forEach(function(develop) {
+          console.log("develop self and others..")
+        if (develop.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Develop Self and Others"] = develop["Competence"]
+        } else if (develop.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Develop Self and Others"] = develop["Confidence"]
+        }else if (develop.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Develop Self and Others"] = develop["Consistency"]
+        }
+    })
+
+    vm.output["Faciliate Change"].forEach(function(facilitate) {
+          console.log("Facilitate Change..")
+        if (facilitate.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Facilitate Change"] = facilitate["Competence"]
+        }else if (facilitate.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Facilitate Change"] = facilitate["Confidence"]
+        }else if (facilitate.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Facilitate Change"] = facilitate["Consistency"]
+        }
+    })
+
+    vm.output["Focus on Customers"].forEach(function(focus) {
+          console.log("focus on change..")
+        if (focus.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Focus on Customers"] = focus["Competence"]
+        } else if (focus.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Focus on Customers"] = focus["Confidence"]
+        }else if (focus.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Focus on Customers"] = focus["Consistency"]
+        }
+    })
+    vm.output["Make Decisions with Speed"].forEach(function(make) {
+          console.log("focus on change..")
+        if (make.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Make Decisions with Speed"] = make["Competence"]
+        } else if (make.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Make Decisions with Speed"] = make["Confidence"]
+        }else if (make.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Make Decisions with Speed"] = make["Consistency"]
+        }
+    })
+      vm.$forceUpdate()
+    } ,
+
+
+    buildchart2: function(){
+console.log("build chart2");
+const vm = this;
+
+//Competence
+      vm.outputy["Building Relationships and Team"].forEach(function(build) {
+          console.log("building..")
+        if (build.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Building Relationships and Team"] = build["Competence"]
+        }else if (build.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Building Relationships and Team"] = build["Confidence"]
+        } else if (build.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Building Relationships and Team"] = build["Consistency"]
+        }
+    })
+ 
+
+    
+    vm.outputy["Communicating Openly and Clearly"].forEach(function(comunicate) {
+          console.log("communicate..")
+        if (comunicate.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Communicate Openly and Clearly"] = comunicate["Competence"]
+        } else if (comunicate.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Comumnicate Openly and Clearly"] = comunicate["Confidence"]
+        }else if (comunicate.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Communicate Openly and Clearly"] = comunicate["Consistency"]
+        }
+    })
+
+        
+    vm.outputy["Deliver Results"].forEach(function(deliver) {
+          console.log("deliver..")
+        if (deliver.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Deliver Results"] = deliver["Competence"]
+        }else if (deliver.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Deliver Results"] = deliver["Confidence"]
+        }else if (deliver.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Deliver Results"] = deliver["Consistency"]
+        }
+    })
+
+    vm.outputy["Act Strategically"].forEach(function(act) {
+          console.log("Act Strategically..")
+        if (act.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Act Strategically"] = act["Competence"]
+        } else if (act.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Act Strategically"] = act["Confidence"]
+        }else if (act.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Act Strategically"] = act["Consistency"]
+        }
+    })
+
+    vm.outputy["Develop Self and Others"].forEach(function(develop) {
+          console.log("develop self and others..")
+        if (develop.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Develop Self and Others"] = develop["Competence"]
+        } else if (develop.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Develop Self and Others"] = develop["Confidence"]
+        }else if (develop.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Develop Self and Others"] = develop["Consistency"]
+        }
+    })
+
+    vm.outputy["Faciliate Change"].forEach(function(facilitate) {
+          console.log("Facilitate Change..")
+        if (facilitate.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Facilitate Change"] = facilitate["Competence"]
+        }else if (facilitate.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Facilitate Change"] = facilitate["Confidence"]
+        }else if (facilitate.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Facilitate Change"] = facilitate["Consistency"]
+        }
+    })
+
+    vm.outputy["Focus on Customers"].forEach(function(focus) {
+          console.log("focus on change..")
+        if (focus.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Focus on Customers"] = focus["Competence"]
+        } else if (focus.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Focus on Customers"] = focus["Confidence"]
+        }else if (focus.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Focus on Customers"] = focus["Consistency"]
+        }
+    })
+    vm.outputy["Make Decisions with Speed"].forEach(function(make) {
+          console.log("focus on change..")
+        if (make.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Make Decisions with Speed"] = make["Competence"]
+        } else if (make.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Make Decisions with Speed"] = make["Confidence"]
+        }else if (make.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Make Decisions with Speed"] = make["Consistency"]
+        }
+    })
+      vm.$forceUpdate()
+    } ,
+    
+          },
+        mounted: function() {
+            this.getCurrentUser();
+                 this.getPreAssessment();
+                 this.getPostAssessment();
+                
+      
+         }
+              };
+
+    const page1 = {
+            template:'#page1',
+            data: function data(){
+               return {
+                   chart:[],
+                      Name:'',
+                      iExist:false,
+                      iDoNotExist:false,
+                      userID:'',
+                      USERID:'',
+                      USERNAME:'',
+                      email:'',
+                      doughboy:'',
+                       root: 'https://DOMAIN.com/sites/track/',
+                       DisplayName: '',
+                       Department:'',
+                       PictureUrl: '',
+                       Title:'',
+                       isHidden: false,
+                       config: {
+                           domainRoot: 'https://domain.com/sites/track/',
+                           listName: 'ISignedUp'
+                       },
+                       UserProfileProperties: {
+                           results: [],
+                           PictureUrl: '',
+                           image: '',
+                      },
+               
+                   
+               }
+           },
+               methods:{
+                   fixedEncodeURIComponent: function (src) {
+                               return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                   return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                               });
+                           },
+                   getUserProperty: function (userProfileProperties, propertyName) {
+                   var propertyValue = '';
+                   for (var i = 0; i < userProfileProperties.length - 1; i++) {
+                       if (userProfileProperties[i].Key === propertyName) {
+                           propertyValue = userProfileProperties[i].Value;
+                           break;
+                       }
+                   }
+                   return propertyValue;
+               },
+               iSignedUpforThis: function(){
+        
+                   console.log("step X");
+                   
+                   if (this.Name && this.userID && this.email) {
+                                           var vm = this;
+                                           $.ajax({
+                                               url: vm.config.domainRoot + "/_api/contextinfo",
+                                               method: "POST",
+                                               headers: {
+                                                   "Accept": "application/json; odata=verbose"
+                                               },
+                                               success: function (data) {
+                                                   //alert("submited");
+                                           
+                                                   var __REQUESTDIGEST = data.d.GetContextWebInformation.FormDigestValue;
+        
+                                                   var itemData = {
+                                                       "__metadata": { "type": "SP.Data." + vm.config.listName + "ListItem" },
+                                                       "Title": "item",
+                                                       "Name": vm.Name,
+                                                       "USERID":vm.userID,
+                                                       "email":vm.email
+                                                   };
+                                                   $.ajax({
+                                                       url: vm.config.domainRoot + "_api/web/lists/getbytitle('" + vm.config.listName + "')/items",
+                                                       method: "POST",
+                                                       headers: {
+                                                           "accept": "application/json;odata=verbose",
+                                                           "X-RequestDigest": __REQUESTDIGEST,
+                                                           "content-Type": "application/json;odata=verbose"
+                                                       },
+                                                       data: JSON.stringify(itemData)
+                                                       
+                                                   })
+                                                   .then(function (result) {
+                                                       console.log(result);
+                                                   
+                                                   }, function (error) {
+                                                       console.log(error);
+                                                   });
+                                                   location.reload(true);
+                                               }
+                                           })
+                                       }
+                                       else
+                                           alert('Please fill out all fields!')
+                                   },
+        
+        
+        
+        
+               
+                           getCurrentUser: function () {
+        
+                               var vm = this;
+                               var __REQUESTDIGEST = '';
+                               $.ajax({
+                                   url: 'https://domain.com/sites/track/' + "_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties,UserName",
+                                   type: 'Get',
+                                   headers: { accept: "application/json;odata=verbose" },
+                                   success: function (data) {
+                                       vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                                       vm.DisplayName = data.d.DisplayName;
+                                       vm.PictureUrl = data.d.PictureUrl;
+                                       vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                                       vm.USERID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserName');
+        
+                                            vm.getSubsites();
+        
+        
+                                       vm.checkSignInSheet();
+        
+        
+                                   }
+                               })
+                           },
+                           checkSignInSheet: function () {
+                               var vm = this;
+                               var __REQUESTDIGEST = '';
+                               $.ajax({
+                                   url: 'https://domain.com/sites/track/' + "_api/web/lists/getbytitle('ISignedUp')/items?$select=Name,USERID&$filter=USERID eq '"
+                                       + vm.fixedEncodeURIComponent(vm.DisplayName) + "' or USERID eq '" + vm.fixedEncodeURIComponent(vm.USERID) + "'",
+                                   type: 'Get',
+                                   headers: { accept: "application/json;odata=verbose" },
+                                   success: function (data) {
+                                       console.log(data);
+                                       if (data.d.results.length > 0) {
+                                           vm.iExist = true;
+                                           vm.iDoNotExist = false;
+                                       }
+                                       else {
+                                           vm.iExist = false;
+                                           vm.iDoNotExist = true;
+        
+                                       }
+                                   }
+                               });
+                           },
+                             GetUserId: function() {
+                       var vm = this;
+                       $.ajax({
+                           url: vm.root + "/_api/web/siteusers(@v)?@v='" +
+                               encodeURIComponent(vm.AccountName) + "'",
+                           method: "GET",
+                           headers: { "Accept": "application/json; odata=verbose" },
+                           success: function (data) {
+                               console.log("Received UserId" + data.d.Id);
+                               vm.userId = data.d.Id;
+                               vm.checkCurrentUserOnSubsites();
+                           },
+                           error: function (data) {
+                               console.log(JSON.stringify(data));
+                           }
+                       });
+                   },
+        
+          
+               checkCurrentUserOnSubsites: function () {
+               var vm = this;
+               $.each(vm.subSites, function (key, value) {
+                   console.log(value);
+                   $.ajax({
+                       url: value.ServerRelativeUrl + "/_api/web/lists/getbytitle('Learner Records')/items?$select=Id,Participant&$filter=Participant eq '" + vm.fixedEncodeURIComponent(vm.DisplayName) +"'",
+                       type: 'Get',
+                       headers: { accept: "application/json;odata=verbose" },
+                       success: function (data) {
+                           console.log(value, data.d.results);
+                           if (data.d.results.length > 0)
+                               value.isCurrentUserExists = true;
+                       },
+                       error: function (data) {
+                           console.log(JSON.stringify(data));
+                       }
+                   
+        
+                   })
+                       });
+                   },
+        
+                       
+              
+        
+               getCourseOwners: function(){
+                   console.log("step4");
+                   var vm=this;
+                   $.ajax({
+                       url: "https://domain.com/sites/track/_api/web/lists/getbytitle('Request%20Intake')/items?$filter=Course_x0020_Owners%20eq '" + vm.DisplayName +"'",
+                       type: 'Get',
+                       headers: { accept: "application/json;odata=verbose" },
+                       success: function (data) {
+                          vm.CourseTitle=data.d.results;
+                           
+                           console.log(data);
+                       }
+                   })
+        
+               },
+               
+            getChartData: function(){
+                   console.log("chartinfo");
+                   var vm=this;
+                   $.ajax({
+                       url: "https://domain.com/sites/ALN/_api/web/lists/getbytitle('JOB')/items",
+                       type: 'Get',
+                       headers: { accept: "application/json;odata=verbose" },
+                       dataType:"html",
+                       success: function (data) {
+                        data= JSON.parse(data);
+                          vm.output=data.d.results[0].Title;
+              alert(vm.output)
+                           
+                           console.log(data);
+                       }
+                   })
+        
+               },
+          
+        
+           
+           
+           mounted: function mounted (){
+                     this.getCurrentUser();
+                     this.getChartData();
+                     this.getChartData2();
+               
+                       },
+                    }
+                }
+    const page3 = {
+        template:'#page3',
+            data: function data() {
+               return {
+                message: '',
+                    selected: [],
+                    test: [],
+                    test2: [],
+                    test3: [],
+                    userId: 0,
+                    tasks: [],
+                    listItemId: 0,
+                      USERID:'',
+                      USERNAME:'',
+                      email:'',
+                      doughboy:'',
+                       root: '',
+                       DisplayName: '',
+                       Department:'',
+                       PictureUrl: '',
+                       Title:'',
+                       isHidden: false,
+                       config: {
+                           domainRoot: '',
+                           listName: 'Post'
+                       },
+                       UserProfileProperties: {
+                           results: [],
+                           PictureUrl: '',
+                           image: '',
+                        
+                         
+        
+                       },
+                       showModal: false,
+            showModalZ:false,
+            showModalZ2:false,
+            showModalZ3:false,
+            showModalZ4:false,
+            showModalZ5:false,
+            showModalZ6:false,
+            showModalZ7:false,
+            showModalZ8:false,
+            showModalZ9:false,
+            
+          
+               }
+           },
+           methods:{
+                   fixedEncodeURIComponent: function (src) {
+                               return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                   return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                               });
+                           },
+                   getUserProperty: function (userProfileProperties, propertyName) {
+                   var propertyValue = '';
+                   for (var i = 0; i < userProfileProperties.length - 1; i++) {
+                       if (userProfileProperties[i].Key === propertyName) {
+                           propertyValue = userProfileProperties[i].Value;
+                           break;
+                       }
+                   }
+                   return propertyValue;
+               },
+          
+        
+               getCurrentUser: function () {
+                    var vm = this;
+                    var __REQUESTDIGEST = '';
+                    $.ajax({
+                        url:'https://domain.com/sites/track/' + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties",
+                        type: 'Get',
+                        headers: { accept: "application/json;odata=verbose" },
+                        success: function (data) {
+                            console.log(data);
+                            vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                            vm.DisplayName = data.d.DisplayName;
+                            vm.PictureUrl = data.d.PictureUrl;
+                            vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                            vm.AccountName = vm.getUserProperty(data.d.UserProfileProperties.results, "AccountName");
+                            vm.GetUserId();
+                        }
+                    })
+                },
+                GetUserId: function() {
+                    var vm = this;
+                    console.log(vm.AccountName)
+                    $.ajax({
+                        url: "https://domain.com/sites/ALN/_api/web/siteusers(@v)?@v='" + encodeURIComponent("i:0#.w|" + vm.AccountName) + "'",
+                        method: "GET",
+                        headers: { "Accept": "application/json; odata=verbose" },
+                        success: function (data) {
+                            console.log("Received UserId" + data.d.Id);
+                            vm.userId = data.d.Id;
+
+                            $.ajax({
+                                url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items?$select=Id, Person/Id&$expand=Person/Id&$filter=Person/Id eq " + vm.userId,
+                                type: 'Get',
+                                headers: { accept: "application/json;odata=verbose" },
+                                success: function (data) {
+                                    if (data.d.results.length > 0)
+                                        vm.listItemId = data.d.results[0].Id;
+                                    console.log(vm.listItemId);
+
+                                }
+                            })
+
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                },
+                generatePush: function () {
+                    var message = {};
+                    $("[class^='bs-exampl']").each(function (setIndex, setItem) {
+                        var sets = $(setItem).find('[data-toggle]');
+                        var setName = sets.parent().prev().prev().text();
+                        message[setName] = [];
+                        sets.each(function (optionIndex, optionItem) {
+                            var optionSetName = $(optionItem).find('label:eq(0)').text();
+                            var optionString = '{"' + optionSetName + '":';
+                            var optionSelectedIndex = 0;
+                            $(optionItem).find('label').each(function (itemIndex, item) {
+                                if ($(item).is('.active'))
+                                    optionSelectedIndex = itemIndex;
+                            })
+                            if (optionSelectedIndex > 0) {
+                                optionString = optionString + optionSelectedIndex + '}';
+                                message[setName].push(JSON.parse(optionString));
+                            }
+                        });
+                    });
+                    console.log(message);
+                    alert("submission completed!")
+       
+                        var vm = this;
+                        $.ajax({
+                            url: vm.config.domainRoot + "/_api/contextinfo",
+                            method: "POST",
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            },
+                            success: function (data) {
+                                var __REQUESTDIGEST = data.d.GetContextWebInformation.FormDigestValue;
+
+                                var itemData = {
+                                    "__metadata": { "type": "SP.Data." + vm.config.listName + "ListItem" },
+                                    "scores": JSON.stringify(message),
+                                    "PersonId": vm.userId,
+                                };
+                                if (vm.listItemId > 0) {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items(" + vm.listItemId + ")",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose",
+                                            "IF-MATCH": "*",
+                                            "X-HTTP-Method": "MERGE"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+                                else {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+
+                            }
+                        })
+                    }
+                    
+                
+                    
+
+        
+        
+               
+            },
+           
+           
+           mounted: function mounted (){
+                     this.getCurrentUser();
+                     
+        
+          
+                    },
+           
+       
+    };
+
+    const router = new VueRouter({
+        routes: [
+            {path: '', component: page1},
+            {path: '/page1', component: fourTemplate},
+            {path: '/page2', component: page2},
+            {path: '/page3', component: page3}
+
+        ]
+    });
+
+    var vm = new Vue({
+        el: '#app',
+        router,
+
+        data: {}
+    })
+</script>
+</body>
+
+
+
+
+
+<!DOCTYPE html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+
+<style>
+    	.dropdown, .dropleft, .dropright, .dropup{
+		position: inherit;
+	}
+	.dropdown-menu.show {
+		width: 100%;
+		background: #999;
+		padding: 0;
+		margin: 0;
+    	border-radius: 0;
+		border: none
+	}
+	.dropdown-menu.show {
+		display: inline-flex;
+	}
+	.dropdown-item {
+    	display: inline-block;
+		float: left;
+		width: auto;
+		color: #fff;
+		padding-top: 10px;
+    	padding-bottom: 10px;
+/*		color: #333;*/
+	}
+         .start {
+           width:141px;
+           padding: 20px;
+       }
+
+    .btn {
+        min-width: 200px;
+    }
+    .btn-secondary1 {
+    color: #fff;
+    background-color: #919ca7;
+    border-color: #6c757d;
+}
+
+.btn-secondary2 {
+    color: #fff;
+    background-color: #7d878f;
+    border-color: #6c757d;
+}
+
+
+.btn-secondary3 {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #5c6268;
+}
+
+.btn-secondary4 {
+    color: #fff;
+    background-color: #4a5055;
+    border-color: #6c757d;
+}
+
+	 .ms-dlgCloseBtnImg {
+        border-style: none !important;
+        max-width: inherit !important;
+    }
+
+    .ms-dlgTitleBtns {
+        margin-right: 0px;
+    }
+
+    .fake-underline{
+    text-decoration: underline;
+
+}
+                .circular-image {
+                                align-content: center;
+                                border-radius: 50%;
+                                width: 150px;
+                                height: 150px;
+                            }
+                    
+                            .accordion {
+    position:relative;
+    background-color:white;
+}
+
+.accordion > input {
+    display:block;
+    margin:0 0;
+    width:100%;
+    height:30px;
+    position:relative;
+    cursor:pointer;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+
+.accordion > label {
+    display:block;
+    font:bold 18px/30px Arial,Sans-Serif;
+    background-color:#a0aec0;
+    color:white;
+    margin:-30px 0 0 0;
+    padding:0 15px;
+}
+
+.accordion > div {
+    padding:10px 15px;
+    display:none;
+}
+
+.accordion > input:checked + label {
+    background-color:slateblue;
+}
+
+.accordion > input:checked + label + div {
+    display:block;
+}
+
+
+.accordion input[type="radio"]:checked + label i.icon::before{
+		transform: rotate(0deg);
+	}
+	i.icon{
+		position: relative;
+		margin-top: 10px;
+		width: 20px;
+		height: 20px;
+		margin-right: 25px;
+	}
+	i.icon::after{
+		content: "";
+		display: block;
+		width: 12px;
+		height: 3px;
+		background: #fff;
+		top: 10px;
+		left: 0;
+		position: absolute;
+	}
+	
+	i.icon::before{
+		content: "";
+		display: block;
+		width: 12px;
+		height: 3px;
+		background: #fff;
+		top: 10px;
+		left: 0;
+		transform: rotate(90deg);
+		position: absolute;
+		transition: all linear 0.2s;
+	}
+    .bs-example {
+      
+    }
+  
+
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.5/dist/vue-router.js"></script>
+</head>
+
+<body class="text-gray-700 bg-white" style="font-family: 'Source Sans Pro', sans-serif">
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <img src="" height="60" width="60">&nbsp;&nbsp;
+            <span class="font-semibold text-3xl tracking-tight"></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+             
+                <li class="nav-item active">
+                    <router-link to="/" class="nav-link">Home</router-link>
+                </li>
+                     
+                <li class="nav-item">
+                    <router-link to="/page3" class="nav-link"> Pre-Assessment</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/page2" class="nav-link">Post-Assessment</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/page1" class="nav-link">Results</router-link>
+                </li>
+      
+
+            </ul>
+            <div class="w-full lg:w-2/5 flex lg:justify-end">
+                <div class="mr-4 relative">
+
+                    <span class="flex items-center absolute pin-r pin-y mr-3"><i
+                            class="fa fa-search text-grey"></i></span>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <router-view></router-view>
+</div>
+	<!--Hero-->
+    <script type= "text/x-template" id="page1">
+
+        <div class="h-auto" style="background: linear-gradient(90deg, #646149 0%, #522223 100%)">
+    
+                <!-- Two columns -->
+                <div class="flex py-12 container mx-auto">
+                    <div class="pr-8">
+                        <h2 class="text-5xl font-bold mb-2 text-white">
+                                Newly 
+                        </h2>
+                        <h3 class="text-2xl text-gray-200">
+                            <p>Use this .</p>
+                        </h3>
+                    </div>
+                    <div>
+   
+                  
+                
+                    </div>
+              
+                </div>
+          
+        
+        
+          
+            
+        
+           
+        
+            <section style="background-color: #ffffff">
+                    <div class="container mx-auto px-6 text-center py-20">
+                        <h2 class="mb-6 text-4xl font-bold text-center text-black">
+                         Assessing Keys
+                        </h2>
+                        
+                        <h3 class="my-4 text-2xl text-black text-left">
+                            This  lets <br><br>
+                        </h3>
+                        <h3 class="my-4 text-2xl text-black text-center">  You will rate each capability on three dimensions
+                        </h3>
+                        <div class="w-full md:w-1/4">
+                
+    
+
+  
+                        </div>
+        
+                        <div class="container mx-auto ">
+                            
+                            <div class="flex flex-wrap">
+                                <div class="w-full md:w-1/3 px-2 mb-4">
+                                    <h4>Comp</h4>
+                                    <div class="">
+                                        <img src="" height="400" width="200">&nbsp;&nbsp;
+                                
+                                        <p class="text-gray-800 text-base px-6 mb-5 flex text-left">
+                                   
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 px-2 mb-4">
+
+                                    <h4>Conf</h4>
+                                    <div class="">
+                                        <img src="" height="400" width="200">&nbsp;&nbsp;
+                                        <p class="text-gray-800 text-base px-6 mb-5 flex text-left"><br>
+                                           
+                            
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 px-2 mb-4">
+                                    <h4>Cons</h4>
+                                    <div class="">
+                                        <img src="img/undraw_data_report_bi6l.png" height="400" width="200">&nbsp;&nbsp;
+                                        <p class="text-gray-800 text-base px-6 mb-5 flex  text-left">
+                                            how o
+                                   
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                
+        
+                        </div>
+           
+        
+                    
+                    </div>
+                </section>
+            <!-- Testimonials -->
+
+            <!--Call to Action-->
+    
+    
+        </div>
+    
+    </script>
+    
+<script type="text/template" id="page2">
+
+ 
+        <div>
+            <div class="flex">
+                <div class="w-1/5 p-6" style="background: #eee; min-height: 800px">
+                 <div class="mx-auto">
+             <div class="sidebar-image-holder">
+                     <div v-if="PictureUrl"  >
+                             <img   v-bind:src="PictureUrl" class="h-40 w-40 rounded-full  mx-auto justify-center items-center" />
+                     </div>
+                     <div v-else="doughboy" class="h-40 w-40 rounded-full mx-auto justify-center items-center ">
+                             <img  class="h-40 w-40 rounded-full mx-auto justify-center items-center"  v-bind:src="doughboy" />
+                             
+                     </div>
+                 </div>
+                     <div class="text-center">
+                             <h2 class="text-2lg">{{DisplayName}}</h2>
+                          <div class="text-purple-500">{{Title}}</div>
+                          <div class="text-purple-500">{{Department}}</div>
+                          <hr>
+                     <br><br>
+                     <div class="centered">
+                        <UL align="left"><LI>Build Relationships and Team  <span v-if="canShowCheckBox1">âœ…</span> </LI>
+                        
+                            <LI>Communicate Openly and Clearly <span v-if="canShowCheckBox2">âœ…</span> </LI>
+                            <LI>Deliver Results <span v-if="canShowCheckBox3">âœ…</span> </LI>
+                            <LI>Manage Performance <span v-if="canShowCheckBox4">âœ…</span> </LI>
+                            <LI>Act Strategically <span v-if="canShowCheckBox5">âœ…</span> </LI>
+              
+                        
+                        </UL>
+                       
+        </div>
+        </div></div>
+                </div>
+         
+        <div class="w-3/4 p-6">
+        
+            <h4>Post-Assessment Instructions:</h4>
+            <br>
+           <p>For the following new manager behaviors, rate your:</p>
+            <ul>
+            </p>
+              <li>Competence: How knowledgeable and skilled are you in the behavior</li>
+              <li>Confidence: How certain are you of your ability to perform the behavior today</li>
+              <li>Consistency: How often do you demonstrate the behavior</li>
+            </ul> 
+          Please click on the <i style="font-size:20px;" aria-hidden="true" class="fa fa-info-circle"></i> to learn more.</p>
+       
+          
+         
+        
+            <H2>Building Relationships and Team</H2>   
+            <p>Please select the corresponding rating for each</p>
+            <div class="bs-example">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Competence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Advanced Beginner
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1"> Mastered
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Confidence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Not Very Confident
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2"> Somewhat Confident
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Confident
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Very Confident
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Consistency</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Never
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Sometimes
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Frequently
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Always
+                    </label>
+                </div>
+    
+            </div>
+            <br>
+            <H2>Communicating Openly and Clearly</H2>
+            <p>Please select the corresponding rating for each</p>
+            <div class="bs-example2">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Competence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Advanced Beginner
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Mastered
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Confidence</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Advanced Beginner
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Mastered
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="start">
+                        <strong>Consistency</strong>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Advanced Beginner
+    
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Proficient
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                    </label>
+                </div>
+    
+            </div>
+    
+              
+                    </div>
+                </div>
+    
+    
+    
+    
+    
+          
+            <button id="save" v-on:click="generatePush()">Save</button>
+         </div>
+       
+        </div>
+        
+
+    
+        
+
+</script>
+
+<script type="text/template" id="page3">
+
+ 
+    <div>
+        <div class="flex">
+            <div class="w-1/5 p-6" style="background: #eee; min-height: 800px">
+             <div class="mx-auto">
+         <div class="sidebar-image-holder">
+                 <div v-if="PictureUrl"  >
+                         <img   v-bind:src="PictureUrl" class="h-40 w-40 rounded-full  mx-auto justify-center items-center" />
+                 </div>
+                 <div v-else="doughboy" class="h-40 w-40 rounded-full mx-auto justify-center items-center ">
+                         <img  class="h-40 w-40 rounded-full mx-auto justify-center items-center"  v-bind:src="doughboy" />
+                         
+                 </div>
+             </div>
+                 <div class="text-center">
+                         <h2 class="text-2lg">{{DisplayName}}</h2>
+                      <div class="text-purple-500">{{Title}}</div>
+                      <div class="text-purple-500">{{Department}}</div>
+                      <hr>
+                 <br><br>
+                 <div class="centered">
+                    <UL align="left"><LI>Build Relationships and Team  <span v-if="canShowCheckBox1">âœ…</span> </LI>
+                    
+                        <LI>Communicate Openly and Clearly <span v-if="canShowCheckBox2">âœ…</span> </LI>
+                        <LI>Deliver Results <span v-if="canShowCheckBox3">âœ…</span> </LI>
+                        <LI>Manage Performance <span v-if="canShowCheckBox4">âœ…</span> </LI>
+                        <LI>Act Strategically <span v-if="canShowCheckBox5">âœ…</span> </LI>
+         
+                    
+                    </UL>
+                   
+    </div>
+    </div></div>
+            </div>
+     
+    <div class="w-3/4 p-6">
+    
+
+        </ul> 
+      Please click on the <i style="font-size:20px;" aria-hidden="true" class="fa fa-info-circle"></i> to learn more.</p>
+     
+      
+     
+    
+        <H2>Building Relationships and Team</H2>
+     
+        <p>Please select the corresponding rating for each</p>
+
+        <div class="bs-example">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Competence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Advanced Beginner
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test" value="1"> Mastered
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Confidence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Not Very Confident
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2"> Somewhat Confident
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Confident
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test2" value="2">Very Confident
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Consistency</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Never
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Sometimes
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Frequently
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Build" autocomplete="off" v-model="test3" value="3">Always
+                </label>
+            </div>
+
+        </div>
+        <br>
+        <H2>Communicating Openly and Clearly</H2>
+        <p>Please select the corresponding rating for each</p>
+        <div class="bs-example2">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Competence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Advanced Beginner
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test" value="1">Mastered
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Confidence</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Advanced Beginner
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test2" value="2">Mastered
+                </label>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="start">
+                    <strong>Consistency</strong>
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Advanced Beginner
+
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Proficient
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="Communicate" autocomplete="off" v-model="test3" value="3">Novice
+                </label>
+            </div>
+
+        </div>
+
+            <br>
+          
+
+
+
+      
+        <button class="btn-" id="save" v-on:click="generatePush()">Save</button>
+
+
+        
+     </div>
+
+    </div>
+    
+
+    
+    
+
+</script>
+
+
+<script type="text/x-template" id="page26">
+    <div class="container">
+<div id="hid" style="display:none;">
+    {{output}} <br><br>
+    {{outputy}} <br><br>
+   {{chartData}}
+</div>
+        <h2>Visual Assessment Results</h2><br><br>
+        <div class="row">
+          
+            
+                <div class="col-sm-4">
+               
+                <h4>Competence</h4>
+              
+                <line-chart :data="chartData" :curve="false" legend="bottom" :discrete="true" :colors="['#f15f2b', '#007AD9']"></line-chart>
+            
+              </div>
+              
+              <div class="col-sm-4">
+                      <h4>Confidence</h4>
+                    <line-chart :data="chartData1" :curve="false" legend="bottom" :discrete="true" :colors="['#f15f2b', '#007AD9']"></line-chart>
+              </div>
+              
+              <div class="col-sm-4">
+                          <h4>Consistency</h4>
+                        <line-chart :data="chartData2" :curve="false" legend="bottom" :discrete="true" :colors="['#f15f2b', '#007AD9']"></line-chart>
+            </div>
+   
+            </div>
+
+        </div>
+    </div>
+</script>
+<script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+<script src="https://unpkg.com/vue-chartkick@0.5.1"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+
+    var page2 = {
+        template:'#page2',
+        data: function data () {
+               return {
+                message:'',
+                selected: [],
+                    test: [],
+                    test2: [],
+                    test3: [],
+                    tasks:[],
+                    userId:0,
+                    listItemId:0,
+                      USERNAME:'',
+                      email:'',
+                      doughboy:'https://domain/sites/track/SiteAssets/img/doughboy.png',
+                       root: 'https://domain.com/sites/VLN',
+                       DisplayName: '',
+                       Department:'',
+                       PictureUrl: '',
+                       Title:'',
+                       isHidden: false,
+                       config: {
+                           domainRoot: 'https://DOMAIN.com/sites/VLN',
+                           listName: 'JOB'
+                       },
+                       UserProfileProperties: {
+                           results: [],
+                           PictureUrl: '',
+                           image: '',
+                        
+                         
+        
+                       },
+                       showModal: false,
+            showModalZ:false,
+            showModalZ2:false,
+            showModalZ3:false,
+            showModalZ4:false,
+            showModalZ5:false,
+            showModalZ6:false,
+            showModalZ7:false,
+            showModalZ8:false,
+            showModalZ9:false,
+           
+               }
+           },
+           methods:{
+            fixedEncodeURIComponent: function (src) {
+                               return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                   return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                               });
+                           },
+                   getUserProperty: function (userProfileProperties, propertyName) {
+                   var propertyValue = '';
+                   for (var i = 0; i < userProfileProperties.length - 1; i++) {
+                       if (userProfileProperties[i].Key === propertyName) {
+                           propertyValue = userProfileProperties[i].Value;
+                           break;
+                       }
+                   }
+                   return propertyValue;
+               },
+          
+        
+               getCurrentUser: function () {
+                    var vm = this;
+                    var __REQUESTDIGEST = '';
+                    $.ajax({
+                        url: 'https://domain.com/sites/track/' + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties",
+                        type: 'Get',
+                        headers: { accept: "application/json;odata=verbose" },
+                        success: function (data) {
+                            console.log(data);
+                            vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                            vm.DisplayName = data.d.DisplayName;
+                            vm.PictureUrl = data.d.PictureUrl;
+                            vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                            vm.AccountName = vm.getUserProperty(data.d.UserProfileProperties.results, "AccountName");
+                            vm.GetUserId();
+                        }
+                    })
+                },
+                GetUserId: function() {
+                    var vm = this;
+                    console.log(vm.AccountName)
+                    $.ajax({
+                        url: "https://adomain.com/sites/ALN/_api/web/siteusers(@v)?@v='" + encodeURIComponent("i:0#.w|" + vm.AccountName) + "'",
+                        method: "GET",
+                        headers: { "Accept": "application/json; odata=verbose" },
+                        success: function (data) {
+                            console.log("Received UserId" + data.d.Id);
+                            vm.userId = data.d.Id;
+
+                            $.ajax({
+                                url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items?$select=Id, Person/Id&$expand=Person/Id&$filter=Person/Id eq " + vm.userId,
+                                type: 'Get',
+                                headers: { accept: "application/json;odata=verbose" },
+                                success: function (data) {
+                                    if (data.d.results.length > 0)
+                                        vm.listItemId = data.d.results[0].Id;
+                                    console.log(vm.listItemId);
+
+                                }
+                            })
+
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                },
+                generatePush: function () {
+                    var message = {};
+                    $("[class^='bs-exampl']").each(function (setIndex, setItem) {
+                        var sets = $(setItem).find('[data-toggle]');
+                        var setName = sets.parent().prev().prev().text();
+                        message[setName] = [];
+                        sets.each(function (optionIndex, optionItem) {
+                            var optionSetName = $(optionItem).find('label:eq(0)').text();
+                            var optionString = '{"' + optionSetName + '":';
+                            var optionSelectedIndex = 0;
+                            $(optionItem).find('label').each(function (itemIndex, item) {
+                                if ($(item).is('.active'))
+                                    optionSelectedIndex = itemIndex;
+                            })
+                            if (optionSelectedIndex > 0) {
+                                optionString = optionString + optionSelectedIndex + '}';
+                                message[setName].push(JSON.parse(optionString));
+                            }
+                        });
+                    });
+                    console.log(message);
+                    alert("submission completed!")
+       
+                        var vm = this;
+                        $.ajax({
+                            url: vm.config.domainRoot + "/_api/contextinfo",
+                            method: "POST",
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            },
+                            success: function (data) {
+                                var __REQUESTDIGEST = data.d.GetContextWebInformation.FormDigestValue;
+
+                                var itemData = {
+                                    "__metadata": { "type": "SP.Data." + vm.config.listName + "ListItem" },
+                                    "scores": JSON.stringify(message),
+                                    "PersonId": vm.userId,
+                                };
+                                if (vm.listItemId > 0) {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items(" + vm.listItemId + ")",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose",
+                                            "IF-MATCH": "*",
+                                            "X-HTTP-Method": "MERGE"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+                                else {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+
+                            }
+                        })
+                    }
+           },
+
+        
+      
+           
+           
+           mounted: function mounted (){
+                     this.getCurrentUser();
+   
+        
+          
+                    },
+           };
+        
+
+
+    
+    const fourTemplate = {
+        template: '#page26',
+
+        data: function data() {
+            return {
+                output: {},
+                outputy: {},
+                DisplayName: '',
+            
+            //chart:[{"name":"Pre-Assessment","data":{"Build Relationships":3,"Communicate":3,"Deliver Results":3,"Manage...":1,"Act Strategically":4,"Develop Self and Others":3,"Faciliate Change":2,"Focus On..":3}},{"name":"Post Assessment","data":{"Build Relationships":7,"Communicate":5,"Deliver Results":4,"Manage...":9,"Act Strategically":5,"Develop Self and Others":7,"Faciliate Change":6,"Focus On..":10}}]
+            chartData:[{"name": "Pre-Assessment","data":{}},{"name":"Post-Assessment","data":{}}],
+            chartData1:[{"name": "Pre-Assessment","data":{}},{"name":"Post-Assessment","data":{}}],
+            chartData2:[{"name": "Pre-Assessment","data":{}},{"name":"Post-Assessment","data":{}}]
+          
+            
+        }
+    },
+        methods:{
+            
+            getCurrentUser: function () {
+                    var vm = this;
+                    var __REQUESTDIGEST = '';
+                    $.ajax({
+                        url: 'https://domain.com/sites/track/' + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties",
+                        type: 'Get',
+                        headers: { accept: "application/json;odata=verbose" },
+                        success: function (data) {
+                          
+                            vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                            vm.DisplayName = data.d.DisplayName;
+                            vm.PictureUrl = data.d.PictureUrl;
+                            vm.Email= data.d.Email;
+                            vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                            vm.AccountName = vm.getUserProperty(data.d.UserProfileProperties.results, "AccountName");
+                            console.log(vm.DisplayName);
+                            console.log(vm.Email);
+                            //vm.GetUserId();
+                        }
+                    })
+                },
+                GetUserId: function() {
+                    var vm = this;
+                    console.log(vm.AccountName)
+                    $.ajax({
+                        url: "https://domain.com/sites/ALN/_api/web/siteusers(@v)?@v='" + encodeURIComponent("i:0#.w|" + vm.AccountName) + "'",
+                        method: "GET",
+                        headers: { "Accept": "application/json; odata=verbose" },
+                        success: function (data) {
+                            console.log("Received UserId" + data.d.Id);
+                            vm.userId = data.d.Id;
+
+                            $.ajax({
+                                url:"https://domain.com/sites/track/_api/web/lists/getbytitle('" + vm.config.listName + "')/items?$select=Id, Person/Id&$expand=Person/Id&$filter=Person/Id eq " + vm.userId +'"',
+                                type: 'Get',
+                                headers: { accept: "application/json;odata=verbose" },
+                                success: function (data) {
+                                    if (data.d.results.length > 0)
+                                        vm.listItemId = data.d.results[0].Id;
+                                    console.log(vm.listItemId);
+
+                                }
+                            })
+
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                },
+           
+            fixedEncodeURIComponent: function (src) {
+                            return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                            });
+                        },
+				getUserProperty: function (userProfileProperties, propertyName) {
+				var propertyValue = '';
+				for (var i = 0; i < userProfileProperties.length - 1; i++) {
+					if (userProfileProperties[i].Key === propertyName) {
+						propertyValue = userProfileProperties[i].Value;
+						break;
+					}
+				}
+				return propertyValue;
+            },
+            
+                       
+            getPreAssessment: function() {
+            console.log("chartinfo");
+            var vm = this;
+            // vm.chart = [
+            //   {
+            //     name: "Pre-Assessment",
+            //     data: { "Build Relationships": 3, Communicate: 3, "Deliver Results": 3, Manage: 1, "Act Strategically": 4, "Develop Self and Others": 3, "Faciliate Change": 2, "Focus On": 3 }
+            //   }
+            // ];
+            // var vm = this;
+            $.ajax({
+              async: true,                                                                                    
+              //url: "https://domain.com/sites/VLN/_api/web/lists/getbytitle('JOB')/items?$filter=Person/Name eq " + vm.DisplayName, // URL to fetch data from sharepoint list
+              url:"https://domain.com/sites/VLN/_api/web/lists/getbytitle('JOB')/items?$select=Person/EMail,scores&$expand=Person",
+              method: "GET",
+              headers: {
+                accept: "application/json;odata=verbose", //It defines the Data format
+                "content-type": "application/json;odata=verbose" //It defines the content type as JSON
+              },
+              success: function(data) {
+                console.log("success", data.d.results);
+                var chart_data = data.d.results[0].scores;
+                vm.output = chart_data;
+
+                //or
+                var chart_data = JSON.parse(data.d.results[0].scores);
+               vm.output = chart_data;
+              vm.buildchart();
+              },
+              error: function(error) {
+                console.log(JSON.stringify(error));
+              }
+            });
+          },
+          getPostAssessment: function() {
+            console.log("chartinfo2");
+            var vm = this;
+            // vm.chart = [
+            //   {
+            //     name: "Pre-Assessment",
+            //     data: { "Build Relationships": 3, Communicate: 3, "Deliver Results": 3, Manage: 1, "Act Strategically": 4, "Develop Self and Others": 3, "Faciliate Change": 2, "Focus On": 3 }
+            //   }
+            // ];
+            // var vm = this;
+            $.ajax({
+              async: true,
+              url: "https://DOMAIN.com/sites/ALN/_api/web/lists/getbytitle('POST')/items?$select=Person/EMail,scores&$expand=Person", // URL to fetch data from sharepoint list
+              method: "GET",
+              headers: {
+                accept: "application/json;odata=verbose", //It defines the Data format
+                "content-type": "application/json;odata=verbose" //It defines the content type as JSON
+              },
+              success: function(data) {
+                console.log("success", data.d.results);
+                var chart_data2 = data.d.results[0].scores;
+                vm.outputy = chart_data2;
+
+                //or
+                var chart_data2 = JSON.parse(data.d.results[0].scores);
+               vm.outputy = chart_data2;
+              vm.buildchart2();
+              },
+              error: function(error) {
+                console.log(JSON.stringify(error));
+              }
+            });
+          },
+
+          buildchart: function(){
+console.log("build chart");
+const vm = this;
+
+//Competence
+      vm.output["Building Relationships and Team"].forEach(function(build) {
+          console.log("building..")
+        if (build.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Building Relationships and Team"] = build["Competence"]
+        }else if (build.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Building Relationships and Team"] = build["Confidence"]
+        } else if (build.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Building Relationships and Team"] = build["Consistency"]
+        }
+    })
+ 
+
+    
+    vm.output["Communicating Openly and Clearly"].forEach(function(comunicate) {
+          console.log("communicate..")
+        if (comunicate.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Communicate Openly and Clearly"] = comunicate["Competence"]
+        } else if (comunicate.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Comumnicate Openly and Clearly"] = comunicate["Confidence"]
+        }else if (comunicate.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Communicate Openly and Clearly"] = comunicate["Consistency"]
+        }
+    })
+
+        
+    vm.output["Deliver Results"].forEach(function(deliver) {
+          console.log("deliver..")
+        if (deliver.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Deliver Results"] = deliver["Competence"]
+        }else if (deliver.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Deliver Results"] = deliver["Confidence"]
+        }else if (deliver.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Deliver Results"] = deliver["Consistency"]
+        }
+    })
+
+    vm.output["Act Strategically"].forEach(function(act) {
+          console.log("Act Strategically..")
+        if (act.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Act Strategically"] = act["Competence"]
+        } else if (act.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Act Strategically"] = act["Confidence"]
+        }else if (act.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Act Strategically"] = act["Consistency"]
+        }
+    })
+
+    vm.output["Develop Self and Others"].forEach(function(develop) {
+          console.log("develop self and others..")
+        if (develop.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Develop Self and Others"] = develop["Competence"]
+        } else if (develop.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Develop Self and Others"] = develop["Confidence"]
+        }else if (develop.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Develop Self and Others"] = develop["Consistency"]
+        }
+    })
+
+    vm.output["Faciliate Change"].forEach(function(facilitate) {
+          console.log("Facilitate Change..")
+        if (facilitate.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Facilitate Change"] = facilitate["Competence"]
+        }else if (facilitate.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Facilitate Change"] = facilitate["Confidence"]
+        }else if (facilitate.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Facilitate Change"] = facilitate["Consistency"]
+        }
+    })
+
+    vm.output["Focus on Customers"].forEach(function(focus) {
+          console.log("focus on change..")
+        if (focus.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Focus on Customers"] = focus["Competence"]
+        } else if (focus.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Focus on Customers"] = focus["Confidence"]
+        }else if (focus.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Focus on Customers"] = focus["Consistency"]
+        }
+    })
+    vm.output["Make Decisions with Speed"].forEach(function(make) {
+          console.log("focus on change..")
+        if (make.hasOwnProperty("Competence")) {
+          vm.chartData[0]["data"]["Make Decisions with Speed"] = make["Competence"]
+        } else if (make.hasOwnProperty("Confidence")) {
+          vm.chartData1[0]["data"]["Make Decisions with Speed"] = make["Confidence"]
+        }else if (make.hasOwnProperty("Consistency")) {
+          vm.chartData2[0]["data"]["Make Decisions with Speed"] = make["Consistency"]
+        }
+    })
+      vm.$forceUpdate()
+    } ,
+
+
+    buildchart2: function(){
+console.log("build chart2");
+const vm = this;
+
+//Competence
+      vm.outputy["Building Relationships and Team"].forEach(function(build) {
+          console.log("building..")
+        if (build.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Building Relationships and Team"] = build["Competence"]
+        }else if (build.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Building Relationships and Team"] = build["Confidence"]
+        } else if (build.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Building Relationships and Team"] = build["Consistency"]
+        }
+    })
+ 
+
+    
+    vm.outputy["Communicating Openly and Clearly"].forEach(function(comunicate) {
+          console.log("communicate..")
+        if (comunicate.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Communicate Openly and Clearly"] = comunicate["Competence"]
+        } else if (comunicate.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Comumnicate Openly and Clearly"] = comunicate["Confidence"]
+        }else if (comunicate.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Communicate Openly and Clearly"] = comunicate["Consistency"]
+        }
+    })
+
+        
+    vm.outputy["Deliver Results"].forEach(function(deliver) {
+          console.log("deliver..")
+        if (deliver.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Deliver Results"] = deliver["Competence"]
+        }else if (deliver.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Deliver Results"] = deliver["Confidence"]
+        }else if (deliver.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Deliver Results"] = deliver["Consistency"]
+        }
+    })
+
+    vm.outputy["Act Strategically"].forEach(function(act) {
+          console.log("Act Strategically..")
+        if (act.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Act Strategically"] = act["Competence"]
+        } else if (act.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Act Strategically"] = act["Confidence"]
+        }else if (act.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Act Strategically"] = act["Consistency"]
+        }
+    })
+
+    vm.outputy["Develop Self and Others"].forEach(function(develop) {
+          console.log("develop self and others..")
+        if (develop.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Develop Self and Others"] = develop["Competence"]
+        } else if (develop.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Develop Self and Others"] = develop["Confidence"]
+        }else if (develop.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Develop Self and Others"] = develop["Consistency"]
+        }
+    })
+
+    vm.outputy["Faciliate Change"].forEach(function(facilitate) {
+          console.log("Facilitate Change..")
+        if (facilitate.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Facilitate Change"] = facilitate["Competence"]
+        }else if (facilitate.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Facilitate Change"] = facilitate["Confidence"]
+        }else if (facilitate.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Facilitate Change"] = facilitate["Consistency"]
+        }
+    })
+
+    vm.outputy["Focus on Customers"].forEach(function(focus) {
+          console.log("focus on change..")
+        if (focus.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Focus on Customers"] = focus["Competence"]
+        } else if (focus.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Focus on Customers"] = focus["Confidence"]
+        }else if (focus.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Focus on Customers"] = focus["Consistency"]
+        }
+    })
+    vm.outputy["Make Decisions with Speed"].forEach(function(make) {
+          console.log("focus on change..")
+        if (make.hasOwnProperty("Competence")) {
+          vm.chartData[1]["data"]["Make Decisions with Speed"] = make["Competence"]
+        } else if (make.hasOwnProperty("Confidence")) {
+          vm.chartData1[1]["data"]["Make Decisions with Speed"] = make["Confidence"]
+        }else if (make.hasOwnProperty("Consistency")) {
+          vm.chartData2[1]["data"]["Make Decisions with Speed"] = make["Consistency"]
+        }
+    })
+      vm.$forceUpdate()
+    } ,
+    
+          },
+        mounted: function() {
+            this.getCurrentUser();
+                 this.getPreAssessment();
+                 this.getPostAssessment();
+                
+      
+         }
+              };
+
+    const page1 = {
+            template:'#page1',
+            data: function data(){
+               return {
+                   chart:[],
+                      Name:'',
+                      iExist:false,
+                      iDoNotExist:false,
+                      userID:'',
+                      USERID:'',
+                      USERNAME:'',
+                      email:'',
+                      doughboy:'',
+                       root: 'https://DOMAIN.com/sites/track/',
+                       DisplayName: '',
+                       Department:'',
+                       PictureUrl: '',
+                       Title:'',
+                       isHidden: false,
+                       config: {
+                           domainRoot: 'https://domain.com/sites/track/',
+                           listName: 'ISignedUp'
+                       },
+                       UserProfileProperties: {
+                           results: [],
+                           PictureUrl: '',
+                           image: '',
+                      },
+               
+                   
+               }
+           },
+               methods:{
+                   fixedEncodeURIComponent: function (src) {
+                               return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                   return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                               });
+                           },
+                   getUserProperty: function (userProfileProperties, propertyName) {
+                   var propertyValue = '';
+                   for (var i = 0; i < userProfileProperties.length - 1; i++) {
+                       if (userProfileProperties[i].Key === propertyName) {
+                           propertyValue = userProfileProperties[i].Value;
+                           break;
+                       }
+                   }
+                   return propertyValue;
+               },
+               iSignedUpforThis: function(){
+        
+                   console.log("step X");
+                   
+                   if (this.Name && this.userID && this.email) {
+                                           var vm = this;
+                                           $.ajax({
+                                               url: vm.config.domainRoot + "/_api/contextinfo",
+                                               method: "POST",
+                                               headers: {
+                                                   "Accept": "application/json; odata=verbose"
+                                               },
+                                               success: function (data) {
+                                                   //alert("submited");
+                                           
+                                                   var __REQUESTDIGEST = data.d.GetContextWebInformation.FormDigestValue;
+        
+                                                   var itemData = {
+                                                       "__metadata": { "type": "SP.Data." + vm.config.listName + "ListItem" },
+                                                       "Title": "item",
+                                                       "Name": vm.Name,
+                                                       "USERID":vm.userID,
+                                                       "email":vm.email
+                                                   };
+                                                   $.ajax({
+                                                       url: vm.config.domainRoot + "_api/web/lists/getbytitle('" + vm.config.listName + "')/items",
+                                                       method: "POST",
+                                                       headers: {
+                                                           "accept": "application/json;odata=verbose",
+                                                           "X-RequestDigest": __REQUESTDIGEST,
+                                                           "content-Type": "application/json;odata=verbose"
+                                                       },
+                                                       data: JSON.stringify(itemData)
+                                                       
+                                                   })
+                                                   .then(function (result) {
+                                                       console.log(result);
+                                                   
+                                                   }, function (error) {
+                                                       console.log(error);
+                                                   });
+                                                   location.reload(true);
+                                               }
+                                           })
+                                       }
+                                       else
+                                           alert('Please fill out all fields!')
+                                   },
+        
+        
+        
+        
+               
+                           getCurrentUser: function () {
+        
+                               var vm = this;
+                               var __REQUESTDIGEST = '';
+                               $.ajax({
+                                   url: 'https://domain.com/sites/track/' + "_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties,UserName",
+                                   type: 'Get',
+                                   headers: { accept: "application/json;odata=verbose" },
+                                   success: function (data) {
+                                       vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                                       vm.DisplayName = data.d.DisplayName;
+                                       vm.PictureUrl = data.d.PictureUrl;
+                                       vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                                       vm.USERID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserName');
+        
+                                            vm.getSubsites();
+        
+        
+                                       vm.checkSignInSheet();
+        
+        
+                                   }
+                               })
+                           },
+                           checkSignInSheet: function () {
+                               var vm = this;
+                               var __REQUESTDIGEST = '';
+                               $.ajax({
+                                   url: 'https://domain.com/sites/track/' + "_api/web/lists/getbytitle('ISignedUp')/items?$select=Name,USERID&$filter=USERID eq '"
+                                       + vm.fixedEncodeURIComponent(vm.DisplayName) + "' or USERID eq '" + vm.fixedEncodeURIComponent(vm.USERID) + "'",
+                                   type: 'Get',
+                                   headers: { accept: "application/json;odata=verbose" },
+                                   success: function (data) {
+                                       console.log(data);
+                                       if (data.d.results.length > 0) {
+                                           vm.iExist = true;
+                                           vm.iDoNotExist = false;
+                                       }
+                                       else {
+                                           vm.iExist = false;
+                                           vm.iDoNotExist = true;
+        
+                                       }
+                                   }
+                               });
+                           },
+                             GetUserId: function() {
+                       var vm = this;
+                       $.ajax({
+                           url: vm.root + "/_api/web/siteusers(@v)?@v='" +
+                               encodeURIComponent(vm.AccountName) + "'",
+                           method: "GET",
+                           headers: { "Accept": "application/json; odata=verbose" },
+                           success: function (data) {
+                               console.log("Received UserId" + data.d.Id);
+                               vm.userId = data.d.Id;
+                               vm.checkCurrentUserOnSubsites();
+                           },
+                           error: function (data) {
+                               console.log(JSON.stringify(data));
+                           }
+                       });
+                   },
+        
+          
+               checkCurrentUserOnSubsites: function () {
+               var vm = this;
+               $.each(vm.subSites, function (key, value) {
+                   console.log(value);
+                   $.ajax({
+                       url: value.ServerRelativeUrl + "/_api/web/lists/getbytitle('Learner Records')/items?$select=Id,Participant&$filter=Participant eq '" + vm.fixedEncodeURIComponent(vm.DisplayName) +"'",
+                       type: 'Get',
+                       headers: { accept: "application/json;odata=verbose" },
+                       success: function (data) {
+                           console.log(value, data.d.results);
+                           if (data.d.results.length > 0)
+                               value.isCurrentUserExists = true;
+                       },
+                       error: function (data) {
+                           console.log(JSON.stringify(data));
+                       }
+                   
+        
+                   })
+                       });
+                   },
+        
+                       
+              
+        
+               getCourseOwners: function(){
+                   console.log("step4");
+                   var vm=this;
+                   $.ajax({
+                       url: "https://domain.com/sites/track/_api/web/lists/getbytitle('Request%20Intake')/items?$filter=Course_x0020_Owners%20eq '" + vm.DisplayName +"'",
+                       type: 'Get',
+                       headers: { accept: "application/json;odata=verbose" },
+                       success: function (data) {
+                          vm.CourseTitle=data.d.results;
+                           
+                           console.log(data);
+                       }
+                   })
+        
+               },
+               
+            getChartData: function(){
+                   console.log("chartinfo");
+                   var vm=this;
+                   $.ajax({
+                       url: "https://domain.com/sites/ALN/_api/web/lists/getbytitle('JOB')/items",
+                       type: 'Get',
+                       headers: { accept: "application/json;odata=verbose" },
+                       dataType:"html",
+                       success: function (data) {
+                        data= JSON.parse(data);
+                          vm.output=data.d.results[0].Title;
+              alert(vm.output)
+                           
+                           console.log(data);
+                       }
+                   })
+        
+               },
+          
+        
+           
+           
+           mounted: function mounted (){
+                     this.getCurrentUser();
+                     this.getChartData();
+                     this.getChartData2();
+               
+                       },
+                    }
+                }
+    const page3 = {
+        template:'#page3',
+            data: function data() {
+               return {
+                message: '',
+                    selected: [],
+                    test: [],
+                    test2: [],
+                    test3: [],
+                    userId: 0,
+                    tasks: [],
+                    listItemId: 0,
+                      USERID:'',
+                      USERNAME:'',
+                      email:'',
+                      doughboy:'',
+                       root: '',
+                       DisplayName: '',
+                       Department:'',
+                       PictureUrl: '',
+                       Title:'',
+                       isHidden: false,
+                       config: {
+                           domainRoot: '',
+                           listName: 'Post'
+                       },
+                       UserProfileProperties: {
+                           results: [],
+                           PictureUrl: '',
+                           image: '',
+                        
+                         
+        
+                       },
+                       showModal: false,
+            showModalZ:false,
+            showModalZ2:false,
+            showModalZ3:false,
+            showModalZ4:false,
+            showModalZ5:false,
+            showModalZ6:false,
+            showModalZ7:false,
+            showModalZ8:false,
+            showModalZ9:false,
+            
+          
+               }
+           },
+           methods:{
+                   fixedEncodeURIComponent: function (src) {
+                               return encodeURIComponent(src).replace(/[']/g, function (c) {
+                                   return '%' + c.charCodeAt(0).toString(16) + '%' + c.charCodeAt(0).toString(16);
+                               });
+                           },
+                   getUserProperty: function (userProfileProperties, propertyName) {
+                   var propertyValue = '';
+                   for (var i = 0; i < userProfileProperties.length - 1; i++) {
+                       if (userProfileProperties[i].Key === propertyName) {
+                           propertyValue = userProfileProperties[i].Value;
+                           break;
+                       }
+                   }
+                   return propertyValue;
+               },
+          
+        
+               getCurrentUser: function () {
+                    var vm = this;
+                    var __REQUESTDIGEST = '';
+                    $.ajax({
+                        url:'https://domain.com/sites/track/' + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties?$select=Title,PictureUrl,DisplayName,Email,Department,UserProfileProperties",
+                        type: 'Get',
+                        headers: { accept: "application/json;odata=verbose" },
+                        success: function (data) {
+                            console.log(data);
+                            vm.GUID = vm.getUserProperty(data.d.UserProfileProperties.results, 'UserProfile_GUID');
+                            vm.DisplayName = data.d.DisplayName;
+                            vm.PictureUrl = data.d.PictureUrl;
+                            vm.Title = vm.getUserProperty(data.d.UserProfileProperties.results, 'Title');
+                            vm.AccountName = vm.getUserProperty(data.d.UserProfileProperties.results, "AccountName");
+                            vm.GetUserId();
+                        }
+                    })
+                },
+                GetUserId: function() {
+                    var vm = this;
+                    console.log(vm.AccountName)
+                    $.ajax({
+                        url: "https://domain.com/sites/ALN/_api/web/siteusers(@v)?@v='" + encodeURIComponent("i:0#.w|" + vm.AccountName) + "'",
+                        method: "GET",
+                        headers: { "Accept": "application/json; odata=verbose" },
+                        success: function (data) {
+                            console.log("Received UserId" + data.d.Id);
+                            vm.userId = data.d.Id;
+
+                            $.ajax({
+                                url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items?$select=Id, Person/Id&$expand=Person/Id&$filter=Person/Id eq " + vm.userId,
+                                type: 'Get',
+                                headers: { accept: "application/json;odata=verbose" },
+                                success: function (data) {
+                                    if (data.d.results.length > 0)
+                                        vm.listItemId = data.d.results[0].Id;
+                                    console.log(vm.listItemId);
+
+                                }
+                            })
+
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+                },
+                generatePush: function () {
+                    var message = {};
+                    $("[class^='bs-exampl']").each(function (setIndex, setItem) {
+                        var sets = $(setItem).find('[data-toggle]');
+                        var setName = sets.parent().prev().prev().text();
+                        message[setName] = [];
+                        sets.each(function (optionIndex, optionItem) {
+                            var optionSetName = $(optionItem).find('label:eq(0)').text();
+                            var optionString = '{"' + optionSetName + '":';
+                            var optionSelectedIndex = 0;
+                            $(optionItem).find('label').each(function (itemIndex, item) {
+                                if ($(item).is('.active'))
+                                    optionSelectedIndex = itemIndex;
+                            })
+                            if (optionSelectedIndex > 0) {
+                                optionString = optionString + optionSelectedIndex + '}';
+                                message[setName].push(JSON.parse(optionString));
+                            }
+                        });
+                    });
+                    console.log(message);
+                    alert("submission completed!")
+       
+                        var vm = this;
+                        $.ajax({
+                            url: vm.config.domainRoot + "/_api/contextinfo",
+                            method: "POST",
+                            headers: {
+                                "Accept": "application/json; odata=verbose"
+                            },
+                            success: function (data) {
+                                var __REQUESTDIGEST = data.d.GetContextWebInformation.FormDigestValue;
+
+                                var itemData = {
+                                    "__metadata": { "type": "SP.Data." + vm.config.listName + "ListItem" },
+                                    "scores": JSON.stringify(message),
+                                    "PersonId": vm.userId,
+                                };
+                                if (vm.listItemId > 0) {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items(" + vm.listItemId + ")",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose",
+                                            "IF-MATCH": "*",
+                                            "X-HTTP-Method": "MERGE"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+                                else {
+                                    $.ajax({
+                                        url: vm.config.domainRoot + "/_api/web/lists/getbytitle('" + vm.config.listName + "')/items",
+                                        method: "POST",
+                                        headers: {
+                                            "accept": "application/json;odata=verbose",
+                                            "X-RequestDigest": __REQUESTDIGEST,
+                                            "content-Type": "application/json;odata=verbose"
+                                        },
+                                        data: JSON.stringify(itemData)
+                                    })
+                                        .then(function (result) {
+                                            console.log(result);
+                                        }, function (error) {
+                                            console.log(error);
+                                        });
+                                }
+
+                            }
+                        })
+                    }
+                    
+                
+                    
+
+        
+        
+               
+            },
+           
+           
+           mounted: function mounted (){
+                     this.getCurrentUser();
+                     
+        
+          
+                    },
+           
+       
+    };
+
+    const router = new VueRouter({
+        routes: [
+            {path: '', component: page1},
+            {path: '/page1', component: fourTemplate},
+            {path: '/page2', component: page2},
+            {path: '/page3', component: page3}
+
+        ]
+    });
+
+    var vm = new Vue({
+        el: '#app',
+        router: router,
+
+        data: {}
+    })
+</script>
+</body>
+
+
+

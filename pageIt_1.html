@@ -1,0 +1,1466 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+    <script src="https://cdn.rawgit.com/abdmob/x2js/master/xml2json.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700&display=swap" rel="stylesheet">
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    
+    <style>
+
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .printDiv {
+                width: 210mm !important;
+                max-width: auto;
+                background-color: #FFF;
+                padding: 5mm;
+                margin: 0;
+            }
+        
+    </style>
+</head>
+<body>
+    <div id="careersVue">
+
+        <div class="container-fluid" v-if="!selectedJob">
+            <div class="row">
+                <div class="col-md-3">
+                    <div>
+                        <br>
+                        <h3>SAMPLE A</h3>
+                        <ul id="role">
+                            <tree-item class="item"
+                                       :isfor-Location="true"
+                                       :item="roles"
+                                       @make-folder="makeFolder"></tree-item>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>sample b</h3>
+                        <ul id="department">
+                            <tree-item class="item"
+                                       :isfor-Location="true"
+                                       :item="departments"
+                                       @make-folder="makeFolder"></tree-item>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <br>
+                    <strong>Search: </strong><input type="text" class="st-default-search-input" style="width: 620px; height: 30px" placeholder="" v-model="searchText" /><select id="select_designatfirst" title="Select Designation" style=" height: 30px" v-model="searchField">
+
+                        <option value=""></option>
+                        <option value="job">Job Title</option>
+                        <option value="education">Education</option>
+                        <option value="history">Job History</option>
+                        <option value="certification">Certifications</option>
+                    </select>
+
+                    <br><br>
+
+<div style="text-align: center;margin-right: 15px;padding: 0px 10px 10px;margin-bottom: 20px;max-width: 810px;"><button class="btn btn-danger">Reset</button></div>
+
+
+                    <div class="jobs" v-if="filteredJobs.length > 0">
+                        <div style="width: 50rem;">
+                            <label class="switch" style="float:right;">
+                                <input type="checkbox" checked>
+                                <span class="slider round" v-on:click="toggleFeaturedItem(false)"></span>
+                                <span class="absolute-no" v-on:click="toggleFeaturedItem(true)">All Profiles</span>
+                            </label>
+                            <br>
+                            <strong style="float:left;" v-if="featureCount === 1">There are  {{featureCount}} Video Profiles</strong>
+                            <strong style="float:left;" v-else>There are {{filteredJobs.length}} career profiles</strong>
+                        </div>
+                        <div class="job" v-for="job in paginate">
+                            <div class="card" style="width: 50rem; padding: 15px; margin: 10px 0;">
+                                <div class="card-body">
+                                    <div style="">
+                                        <h5 class="card-title">{{ job.Name.FirstName }} {{ job.Name.LastName }}</h5>
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <h6 class="card-subtitle mb-2 text-muted">{{job.Name.JobTitle}}</h6>
+                                                <h6 class="card-subtitle mb-2 text-muted" v-model="job.Name.Office">{{job.Name.Office | state}}</h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">{{job.Name.Department}}</h6>
+                                                <a href="#" v-on:click="viewJob(job)">Learn More</a>
+
+                                            </div>
+                                            <div class="col-lg-5">
+                                                Education:<a v-for="education in getEducationText(job)" href="#" v-on:click="updateEducation(education)">{{education}} </a></br>
+
+
+
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="circlular-image" style="">
+
+                                                    <img class="circular-image" v-bind:src="getImgUrl(job)" onerror="this.src=''" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <span v-if="job.Featured" class="ribbon"><span class=".ribbon span::before ">Video</span><span class=".ribbon span::after ">Video</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="" v-if="filteredJobs.length === 0" @click="viewJob({})">
+                        <strong>There are {{filteredJobs.length}} profiles that match this criteria</strong>
+                    </div>
+                </div>
+            </div>
+            <ul id="pagination">
+                <li v-for="pageNumber in totalPages">
+                    <a href="#" @click="setPage(pageNumber-1)">{{ pageNumber }}</a>
+                </li> 
+            </ul>
+        </div>
+        <div :class="{'container-fluid': !printing}" v-if="selectedJob && !showApplication">
+            <div class="row">
+                <div class="col">
+                    <a href="#" v-if="!printing" v-on:click="gotoJobs()">&#x27F5; Back</a>
+                </div>
+            </div>
+            <div :class="{ 'col-lg-12 col-md-12': !printing, 'printDiv': printing}" ref='element-to-print'>
+                <header>
+                    <div class="logo">
+                        <div v-else v-if="!printing">
+                            <img  class="circular-image2 photo" v-bind:src="getImgUrl(selectedJob)"/>
+                        </div>
+                    </div>
+                    <div class="row align-items-baseline">
+                        <div class="col-md-9 offset-3">
+                            <h2>An Interview With</h2>
+                            <h4>{{selectedJob.Name.FirstName}} {{selectedJob.Name.LastName}}</h4>
+                        </div>
+                    </div>
+                </header>
+                <section>
+                    <div>
+                        <div :class="{'col-9 offset-3': !printing, 'col-12': printing}">
+                            <h4 class="text-primary title">Background</h4>
+                            <div class="accordian" id="accordian1">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <div class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-controls="collapseOne">
+                                                Job Title at the time of interview
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" :class="{ 'show': printing }"
+                                    aria-labelledby="headingOne"
+                                        data-parent="#accordion1">
+                                        <div class="card-body">
+                                            <p>{{selectedJob.Name.JobTitle}} interviewed November 2019</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                data-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo" v-on:click="viewArticle(selectedJob)">
+                                                Work History
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" :class="{ 'show': printing }"
+                                        aria-labelledby="headingTwo" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            <blog-articles :dates-articles='datesArticles' v-if="isDataLoaded">
+                                            </blog-articles>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                data-target="#collapseThree" aria-expanded="false"
+                                                aria-controls="collapseThree" v-on:click="viewEdu(selectedJob)">
+                                                Education
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" :class="{ 'show': printing }"
+                                        aria-labelledby="headingThree" data-parent="#accordion1">
+                                        <div class="card-body">
+                                            <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2">
+                                            </blog-articles2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 class="title mt-4">Interview</h4>
+                            <div class="accordion" id="accordion2">
+                                <span v-if="selectedJob.Featured">
+                                    <div class="card">
+                                        <div class="card-header" id="headingFour">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                    data-target="#collapseFour" aria-controls="collapseFour">
+                                                    Video Interview
+                                                </button>
+                                            </h2>
+                                        </div>
+
+                                        <div id="collapseFour" class="collapse" :class="{ 'show': printing }"
+                                            aria-labelledby="headingFour" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                <a v-bind:href="selectedJob.vid" target="_blank">Watch Video</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <span v-else>
+                                    <div class="card">
+                                        <div class="card-header" id="headingFive">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapseFive"
+                                                    aria-expanded="false" aria-controls="collapseFive">
+                                                    Describe your business function
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapseFive" class="collapse" :class="{ 'show': printing }"
+                                            aria-labelledby="headingFive" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                <span v-html="selectedJob.OData__x0071_1">{{selectedJob.OData__x0071_1}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingSix">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapseSix"
+                                                    aria-expanded="false" aria-controls="collapseSix">
+                                                    Describe your role
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapseSix" class="collapse" :class="{ 'show': printing }"
+                                            aria-labelledby="headingSix" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                <div class="metabar">
+                                                    <p v-if="checkHTML(selectedJob.OData__x0071_3)" class="xx">Q: What
+                                                        are the
+                                                        objectives of the role?</p>
+                                                </div><br>
+                                                <p v-if="checkHTML(selectedJob.OData__x0071_3)"
+                                                    v-html="selectedJob.OData__x0071_3">
+                                                    <br>{{selectedJob.OData__x0071_3}}</p>
+                                                <br>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingSeven">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapseSeven"
+                                                    aria-expanded="false" aria-controls="collapseSeven">
+                                                    Describe the skills and knowledge needed for this role
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapseSeven" class="collapse" :class="{ 'show': printing }"
+                                            aria-labelledby="headingThree" data-parent="#accordion1">
+                                            <div class="card-body">
+                                                <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2">
+                                                </blog-articles2>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="container"  v-if="selectedJob && !showApplication">
+                <div class="text-center alert alert-primary" v-if="printing">Printing Document Please Wait...</div>
+                <button style="display: block;margin: auto;" class="btn btn-primary" @click="HTMLToPdfOne()">Download As PDF</button>
+            </div>
+        </div>
+        <!-- <div :class="{'row': !printing}" v-if="selectedJob && !showApplication">
+            <div class="row" >
+                    <div class="col">
+                    <a href="#"   v-if="!printing" v-on:click="gotoJobs()">&#x27F5; Back</a>
+                    </div>
+                </div>
+        <div :class="{'col-lg-12 col-md-12' : !printing, 'printDiv' : printing }"  ref='element-to-print'> -->
+            <!-- <header class="header">
+            
+    
+            <div class="logo">
+                    <div v-if="!printing">
+                      <img v-bind:src="selectedJob.img" class="circular-image2 photo"/>
+                    </div>
+                    <div v-else v-if="!printing">
+                        <img  class="circular-image2 photo" v-bind:src="getImgUrl(selectedJob)"/>
+                    </div>
+                    
+                <div class="row align-items-baseline">
+                    <div class="col-md-9 offset-3">
+                        <h2>An Interview With</h2>
+                        <h4>{{selectedJob.Name.FirstName}} {{selectedJob.Name.LastName}}</h4>
+                    </div>
+                </div>
+            </div>
+        </header> -->
+    
+        <!-- <section >
+            <div>
+                <div :class="{'col-9 offset-3': !printing, 'col-12': printing}">
+                    <h4 class="text-primary title">Background</h4>
+                    <div class="accordion" id="accordion1">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        :class="{ 'show': printing }" v-bind:class="{ show: printing }"
+                                        data-target="#collapseOne" aria-controls="collapseOne">
+                                        Job Title at the time of interview
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne" class="collapse" :class="{ 'show': printing }"
+                                v-bind:class="{ show: printing }" aria-labelledby="headingOne"
+                                data-parent="#accordion1">
+                                <div class="card-body">
+                                    <p>{{selectedJob.Name.JobTitle}} interviewed November 2019</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseTwo"
+                                        aria-expanded="false" aria-controls="collapseTwo"
+                                        v-on:click="viewArticle(selectedJob)">
+                                        Work History
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" :class="{ 'show': printing }"
+                                aria-labelledby="headingTwo"
+                                data-parent="#accordion1">
+                                <div class="card-body">
+                                    <blog-articles :dates-articles='datesArticles' v-if="isDataLoaded"></blog-articles>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                        v-on:click="viewEdu(selectedJob)">
+                                        Education
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" :class="{ 'show': printing }"
+                                aria-labelledby="headingThree"
+                                data-parent="#accordion1">
+                                <div class="card-body">
+                                    <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2">
+                                    </blog-articles2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="title mt-4">Interview</h4>
+                    <div class="accordion" id="accordion2">
+                        <span v-if="selectedJob.Featured">
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapseFour" aria-controls="collapseFour">
+                                            Video Interview
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseFour" class="collapse" :class="{ 'show': printing }"
+                                    aria-labelledby="headingFour"
+                                    data-parent="#accordion2">
+                                    <div class="card-body">
+                                        <a v-bind:href="selectedJob.vid" target="_blank">Watch Video</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <span v-else>
+                            <div class="card">
+                                <div class="card-header" id="headingFive">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                            data-target="#collapseFive" aria-expanded="false"
+                                            aria-controls="collapseFive">
+                                            Describe your business function
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseFive" class="collapse" :class="{ 'show': printing }"
+                                    aria-labelledby="headingFive"
+                                    data-parent="#accordion2">
+                                    <div class="card-body">
+                                        <span v-html="selectedJob.OData__x0071_1">{{selectedJob.OData__x0071_1}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingSix">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                            data-target="#collapseSix" aria-expanded="false"
+                                            aria-controls="collapseSix">
+                                            Describe your role
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseSix" class="collapse" :class="{ 'show': printing }"
+                                    aria-labelledby="headingSix"
+                                    data-parent="#accordion2">
+                                    <div class="card-body">
+                                        <div class="metabar">
+                                            <p v-if="checkHTML(selectedJob.OData__x0071_3)" class="xx">Q: What are the
+                                                objectives of the role?</p>
+                                        </div><br>
+                                        <p v-if="checkHTML(selectedJob.OData__x0071_3)"
+                                            v-html="selectedJob.OData__x0071_3"><br>{{selectedJob.OData__x0071_3}}</p>
+                                        <br>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingSeven">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                            data-target="#collapseSeven" aria-expanded="false"
+                                            aria-controls="collapseSeven">
+                                            Describe the skills and knowledge needed for this role
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseSeven" class="collapse" :class="{ 'show': printing }"
+                                    aria-labelledby="headingThree"
+                                    data-parent="#accordion1">
+                                    <div class="card-body">
+                                        <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2">
+                                        </blog-articles2>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+
+
+
+
+
+
+
+
+            <div class="container-fluid" v-if="showApplication">
+                <div class="row" style="max-width: 100%;">
+                    <div class="row" style="max-width: 100%;">
+                        <div class="col-lg-3 col-md-3">
+                            <header class="site-header">
+                                <a href="" class="btn btn-dark apply-button apply-for-job">Back</a>
+                                <br>
+                                <br>
+                                <div class="logo">
+                                    <img class="circular-image2" v-bind:src="selectedJob.image" />
+                                </div>
+
+                                <div class="clean">
+                                    <h5> {{selectedJob.name}}</h5>
+                                    <h4>{{selectedJob.location}}</h4>
+
+                                    <br>
+                                    <p align="left"> {{selectedJob.description}}</p>
+                                    <hr>
+                                    <h4 align="left">Education:</h4> <h6> {{selectedJob.Education}}</h6>
+                                    <br>
+                                    <h4 align="left">Certification:</h4> <h6>  {{selectedJob.Certification}}</h6>
+                                    <a href="#" v-on:click="viewJob(job)">View</a>
+                                </div>
+                            </header>
+                        </div>
+
+                        <div class="col-lg-8 col-md-8">
+                            <h2 align="center"> {{selectedJob.name}}'s Career History</h2>
+                            <div class="main-timeline">
+                                <div class="timeline">
+                                    <a href="#" class="timeline-content">
+                                        <h3 class="title">Art Director</h3>
+
+
+                                        <span class="timeline-year">2016</span>
+                                    </a>
+                                </div>
+                                <div class="timeline">
+                                    <a href="#" class="timeline-content">
+                                        <h3 class="title">Lead Designer</h3>
+
+
+                                        <span class="timeline-year">2006</span>
+                                    </a>
+                                </div>
+                                <div class="timeline">
+                                    <a href="#" class="timeline-content">
+                                        <h3 class="title">Design Sr</h3>
+
+
+                                        <span class="timeline-year">2005</span>
+                                    </a>
+                                </div>
+                                <div class="timeline">
+                                    <a href="#" class="timeline-content">
+                                        <h3 class="title">Design Associate</h3>
+
+
+                                        <span class="timeline-year">2002</span>
+                                    </a>
+                                </div>
+                                <div class="timeline">
+                                    <a href="#" class="timeline-content">
+                                        <h3 class="title">Design Intern II</h3>
+
+
+                                        <span class="timeline-year">2000</span>
+                                    </a>
+                                </div>
+                                <div class="timeline">
+                                    <a href="#" class="timeline-content">
+                                        <h3 class="title">Design Intern I</h3>
+
+
+                                        <span class="timeline-year">1999</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="container"  v-if="selectedJob && !showApplication">
+            <div class="text-center alert alert-primary" v-if="printing">Printing Document Please Wait...</div>
+            <button style="display: block;margin: auto;" class="btn btn-primary" @click="HTMLToPdfOne()">Download As PDF</button>
+        </div>
+    </div>
+    <script type="text/x-template" id="item-template">
+        <li>
+            <div :class="{bold: isFolder}"
+                 @click="toggle"
+                 @dblclick="makeFolder">
+                <span v-if="isFolder">[{{ item.isOpen || isOpen ? '-' : '+' }}] {{ item.name }}</span>
+                <input v-if="!isFolder && isforLocation" type="checkbox" @change="updateRoleSearch($event)" v-bind:id="careers.shared.slugify(item.name)" v-bind:value="item.name" />
+                <input v-if="!isFolder && !isforLocation" type="checkbox" @change="updateDepartmentSearch($event)" v-bind:id="careers.shared.slugify(item.name)" v-bind:value="item.name" />
+                <label v-bind:for="careers.shared.slugify(item.name)" v-if="!isFolder && isforLocation">{{item.name}}</label>
+                <label v-bind:for="careers.shared.slugify(item.name)" v-if="!isFolder && !isforLocation">{{item.name}}</label>
+            </div>
+            <ul v-show="item.isOpen || isOpen" v-if="isFolder">
+                <tree-item class="item"
+                           :isfor-location="isforLocation"
+                           v-for="(child, index) in item.children"
+                           :key="index"
+                           :item="child"
+                           @make-folder="$emit('make-folder', $event)"></tree-item>
+            </ul>
+        </li>
+    </script>
+    <template id='my-template'>
+        <div class='container'>
+            <div class='timeline' v-if='anyArticle()'>
+                <div v-for='(dateWithArticles, date) in searchedArticles'>
+                    <p v-if='dateWithArticles.length > 0' class='date'>{{ date }}</p>
+                    <div v-for='article in dateWithArticles' class='article'>
+                        <span class='dot'></span>
+                        <p class='article-date'>{{ article.published_at }}</p>
+                        <h3><a :href="'#' + article.slug">{{ article.title }}</a></h3>
+                        <p><a href="#" v-on:click="triggerUpdateHistory(article.teaser)">{{ article.teaser }}</a></p>
+                    </div>
+                </div>
+            </div>
+            <p v-else>No Job History found.</p>
+        </div>
+    </template>
+
+    <template id='my-template2'>
+        <div class='container'>
+            <div class='timeline' v-if='anyArticle()'>
+                <div v-for='(dateWithArticles2, date) in searchedArticles'>
+                    <p v-if='dateWithArticles2.length > 0' class='date'>{{ date }}</p>
+                    <div v-for='article in dateWithArticles2' class='article'>
+                        <span class='dot'></span>
+                        <p class='article-date'>{{ article.published_at }}</p>
+                        <h3><a :href="'#' + article.slug">{{ article.title }}</a></h3>
+                        <p>{{ article.teaser }}</p>
+                    </div>
+                </div>
+            </div>
+            <p v-else>No Education found.</p>
+        </div>
+    </template>
+    <script>
+        Vue.component('blog-articles', {
+            template: '#my-template',
+            props: ['datesArticles'],
+            data: function () {
+                return {
+                    searchQuery: ''
+                }
+            },
+            computed: {
+                searchedArticles: function () {
+                    console.log(this.datesArticles)
+                    var searchRegex = new RegExp(this.searchQuery, 'i');
+                    var searchedObj = {};
+
+                    if (this.searchQuery == '') {
+                        return this.datesArticles;
+                    }
+
+                    for (var date in this.datesArticles) {
+                        searchedObj[date] = this.datesArticles[date].filter(function (article) {
+                            return searchRegex.test(article.title) ||
+                                searchRegex.test(article.teaser) ||
+                                searchRegex.test(article.published_at) ||
+                                searchRegex.test(date);
+                        });
+                    }
+                    return searchedObj;
+                }
+            },
+            methods: {
+                anyArticle: function () {
+                    return this.countAllArticles() ? true : false;
+                },
+                countAllArticles: function () {
+                    var count = 0;
+                    for (var date in this.searchedArticles) {
+                        count += this.searchedArticles[date].length;
+                    }
+                    return count;
+                },
+                triggerUpdateHistory: function (his) {
+                    //alert("test");
+                    this.$parent.$root.UpdateHistory(his);
+                    this.$parent.$root.gotoJobs();
+                    this.$parent.$root.showModal3 = false;
+                }
+            }
+        });
+        Vue.component('blog-articles2', {
+            template: '#my-template2',
+            props: ['datesArticles2'],
+            data: function () {
+                return {
+                    searchQuery: ''
+                }
+            },
+            computed: {
+                searchedArticles: function () {
+                    console.log(this.datesArticles2)
+                    var searchRegex = new RegExp(this.searchQuery, 'i');
+                    var searchedObj = {};
+
+                    if (this.searchQuery == '') {
+                        return this.datesArticles2;
+                    }
+
+                    for (var date in this.datesArticles2) {
+                        searchedObj[date] = this.datesArticles2[date].filter(function (article) {
+                            return searchRegex.test(article.title) ||
+                                searchRegex.test(article.teaser) ||
+                                searchRegex.test(article.published_at) ||
+                                searchRegex.test(date);
+                        });
+                    }
+                    return searchedObj;
+                }
+            },
+            methods: {
+                anyArticle: function () {
+                    return this.countAllArticles() ? true : false;
+                },
+                countAllArticles: function () {
+                    var count = 0;
+                    for (var date in this.searchedArticles) {
+                        count += this.searchedArticles[date].length;
+                    }
+                    return count;
+                }
+            }
+        });
+
+
+
+        Vue.component('tree-item', {
+            template: '#item-template',
+            props: {
+                isforLocation: Boolean,
+                item: Object
+            },
+            data: function () {
+                return {
+                    isOpen: false
+                }
+            },
+            computed: {
+                isFolder: function () {
+                    return this.item.children &&
+                        this.item.children.length
+                }
+            },
+            methods: {
+                viewJob: function (item) {
+                    console.log(item);
+                    vm.selectedJob = item;
+                    vm.showApplication = true;
+                },
+                updateDepartmentSearch: function (e) {
+                    if (e.target.checked)
+                        tmpCheckedDepartments.push(e.target.value);
+                    else
+                        tmpCheckedDepartments.splice(tmpCheckedDepartments.indexOf(e.target.value), 1);
+                    console.log(tmpCheckedDepartments);
+                    this.$parent.$root.updateCheckedDepartments(tmpCheckedDepartments)
+                },
+                updateRoleSearch: function (e) {
+                    if (e.target.checked)
+                        tmpCheckedRols.push(e.target.value);
+                    else
+                        tmpCheckedRols.splice(tmpCheckedRols.indexOf(e.target.value), 1);
+                    console.log(tmpCheckedRols);
+                    this.$parent.$root.updateCheckedRole(tmpCheckedRols)
+                },
+                toggle: function () {
+                    if (this.isFolder) {
+                        this.isOpen = !this.isOpen
+                    }
+                },
+                makeFolder: function () {
+                    if (!this.isFolder) {
+                        this.$emit('make-folder', this.item)
+                        this.isOpen = true
+                    }
+                }
+            }
+        });
+
+
+        var careers = careers || {};
+
+        careers.shared = function ($) {
+
+            'use strict';
+
+            var locations = ['Staff VP', 'Vice President', 'Senior Vice', 'Executive Vice', 'Associate', 'Senior QA Analyst'];
+            var departments = [{ name: 'Creative', color: '#D90026' }, { name: 'Human Resources', color: '#98B460' }, { name: 'Technology', color: '#3D719C' }, { name: 'Operations', color: '#FEC246' }, { name: 'UX & Product Design', color: '#815E90' }];
+
+            function slugify(text) {
+                return text == null ? "" : text.toString().toLowerCase()
+                    // .replace(/,\s*/g, '.')
+                    .replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
+            }
+
+            function slugifyLocation(text) {
+                return text.toString().replace(', ', '.').replace(' ', '-');
+            }
+
+            function slugifyDepartment(text) {
+                return text.toString().replace(' ', '+').replace('-', '_');
+            }
+
+            return {
+                locations: locations,
+                departments: departments,
+                slugifyLocation: slugifyLocation,
+                slugifyDepartment: slugifyDepartment,
+                slugify: slugify
+            };
+
+        }(jQuery);
+
+
+        var careers = careers || {};
+
+        String.prototype.includes = String.prototype.includes || function (str) {
+            return this.indexOf(str) >= 0;
+        };
+
+        String.prototype.startsWith = String.prototype.startsWith || function (prefix) {
+            return this.indexOf(prefix) === 0;
+        };
+
+        String.prototype.endsWith = String.prototype.endsWith || function (suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) >= 0;
+        };
+
+        careers.search = function ($) {
+
+            'use strict';
+
+            var HASH_BANG = "#!/";
+            var FILTER_DELIMITER = ':';
+            var BASE_TALEO_APPLY_URL = '';
+            var isApplication = false;
+
+            const states = new Map([
+                ['NY', 'New York'],
+                ['LA', 'Louisiana'],
+                ['TX', 'Texas'],
+                ['NJ', 'New Jersey'],
+                ['CA', 'California'],
+                ['IN', 'Indiana'],
+                ['GA', 'Georgia'],
+                ['FL', 'Florida'],
+                ['AL', 'Alabama'],
+                ['VA', 'Virginia'],
+                ['NH', 'New Hampshire'],
+                ['CT', 'Connecticut'],
+                ['OH', 'Ohio'],
+                ['IL', 'Illinois'],
+                ['NV', 'Nevada'],
+                ['ME', 'Maine'],
+                ['MA', 'Massachusetts'],
+                ['DC', 'Washington, DC'],
+                ['CO', 'Colorado'],
+            ])
+
+            Vue.filter('state', function(value)  {
+                return (value != null ? states.get(value.substring(0, 2)) : "") || 'Unknown'
+            })
+
+
+            Vue.component('modal', {
+                template: '#modal-template'
+            })
+
+            var vm = new Vue({
+                el: '#careersVue',
+                data: {
+                    locations: careers.shared.locations,
+                    jobs: [],
+                    history: [],
+                    education: [],
+                    certification: [],
+                    checkedLocations: [],
+                    checkedDepartments: [],
+                    selectedLocation: [],
+                    selectedHistory: [],
+                    selectedCertification: [],
+                    selectedJob: null,
+                    selectedEducation: [],
+                    showApplication: false,
+                    showApplication2: false,
+                    currentUser: '',
+                    currentUserName: '',
+                    currenntUserName: '',
+                    datesArticles: {},
+                    datesArticles2: {},
+                    selectedJobForArticle: null,
+                    selectedJobForArticle2: null,
+                    root: '',
+                    root2: '',
+                    root3: '',
+                    ImgBlankManUrl: '',
+                    featureCount: 0,
+                    showOnlyFeatured: false,
+                    roles: [],
+                    departments: [],
+                    onlyUIChange: false,
+                    showModal: false,
+                    showModal2: false,
+                    showModal3: false,
+                    showModal4: false,
+                    showModal5: false,
+                    showModal6: false,
+                    showModal7: false,
+                    showModal8: false,
+                    showModal9: false,
+                    isDataLoaded: false,
+                    isDataLoaded2: false,
+                    searchText: "",
+                    searchField: "job",
+                    dynamicFields: '',
+                    dynamicFieldTitle: [],
+                    dynamicFieldDescription: [],
+                    currentPage: 0,
+                    itemsPerPage: 6,
+                    resultCount: 0,
+                    printing: false,
+                    ratio: 0
+                },
+                mounted: function () {
+                    var div = document.createElement('div')
+                    div.id = 'qwerty' 
+                    div.style.width = '100mm' 
+                    document.querySelector('body').append(div)
+                    this.ratio = div.clientWidth/100
+                    div.remove()
+                    this.fetchListColumns();
+                },
+                created: function () {
+                    $('#careersVue').show();
+                    //this.applyFilters();
+
+                },
+                methods: {
+                    HTMLToPdfOne: function () {
+                        var vm = this
+                        vm.viewArticle(vm.selectedJob)
+                        vm.viewEdu(vm.selectedJob)
+                        vm.printing = true;
+                        this.$nextTick(function () {
+                            var printElem = vm.$refs['element-to-print']
+                            var heightInMM = printElem.clientHeight/this.ratio
+                            var pages = (heightInMM/297)
+                            var partialPage = pages%1
+                            if (partialPage > 0) {
+                            pages = Math.floor(pages + 1)
+                            }
+                            printElem.style.height = (297*pages).toString() + "mm"
+                            var pdf = new jsPDF();
+                            html2canvas(printElem, {
+                            allowTaint: true,
+                            backgroundColor: '#FF0',
+                            scale: 4,
+                            useCORS: true,
+                            onrendered: function(canvas) {
+                                vm.printing = false
+                                var htmlImage = canvas.toDataURL('image/jpeg', 2.0)
+                                for(var i = 0; i < pages; i++) {
+                                    if (i != 0) {
+                                        pdf.addPage()
+                                    }
+                                    pdf.addImage(
+                                        htmlImage,
+                                        'jpeg',
+                                        0, (-297)*i
+                                    )
+                                    if( i == pages-1 ) {
+                                        pdf.save('pdf.pdf')    
+                                        printElem.style.height = 'auto'
+                                    }
+                                }
+                            }
+                            })
+                        })
+                    },
+                    checkHTML: function (html) {
+                        // check the html string with this regex pattern to see if it contains
+                        // not available, n/a or N/A
+                        if (html.match(/([Nn]\/[Aa])|(not available)/g)) {
+                            // if it does include those words return false (hide the div)
+                            return false;
+                        } else {
+                            // if it doesn't include the words (yay!) you can return true (show the div)
+                            return true;
+                        }
+                    },
+                    setPage: function (pageNumber) {
+                        this.currentPage = pageNumber;
+                        console.log(pageNumber);
+                    },
+                    refreshPage: function () {
+                        location.reload();
+                    },
+
+                    updateSearch: function (location) {
+                        this.selectedLocation = location;
+                    },
+
+                    getCertification: function () {
+                        vm = this;
+                        this.$http.get('data/history.xml').then(function (response) {
+                            vm.certification = JSON.parse(vm.getXMLtoJSON(response.body));
+                            vm.jobs.forEach(function (item) {
+                                var currenntUserName = item.Name.LastName + ', ' + item.Name.FirstName;
+                                var filterCertification = vm.certification.RS.R.filter(function (cert) {
+                                    return cert.C0 == currenntUserName;
+                                });
+                                item.certification = filterCertification;
+                            });
+                        });
+                    },
+                    getEdu: function () {
+                        vm = this;
+                        this.$http.get('data/education.xml').then(function (response) {
+                            vm.education = JSON.parse(vm.getXMLtoJSON(response.body));
+                            vm.jobs.forEach(function (item) {
+                                var currenntUserName = item.Name.LastName + ', ' + item.Name.FirstName;
+                                var filterEducation = vm.education.RS.R.filter(function (edu) {
+                                    return edu.C0 == currenntUserName;
+                                });
+                                item.education = filterEducation;
+                            });
+                        });
+                    },
+                    //on card
+                    getEducationText: function (item) {
+                        var education = [];
+                        if (item.education && item.education.length > 0) {
+                            item.education.forEach(function (edu) {
+                                education.push(edu.C5);
+                            });
+                        }
+                        return education;
+                    },
+                    getAllDegreeBySchool: function (schoolName) {
+                        var degree = [];
+                        if (this.selectedJobForEducation.education && this.selectedJobForEducation.education.length > 0) {
+                            this.selectedJobForEducation.education.forEach(function (edu) {
+                                if (edu.C4 == schoolName)
+                                    degree.push(edu.C5);
+                            });
+                        }
+                        return degree;
+                    },
+
+                    getCertText: function (item) {
+                        var certification = [];
+                        if (item && item.certification && item.certification.length > 0) {
+                            item.certification.forEach(function (cert) {
+                                certification.push(cert.C4);
+                            });
+                        }
+                        return certification;
+                    },
+                    getHistory: function () {
+                        vm = this;
+                        this.$http.get('data/history.xml').then(function (response) {
+                            vm.history = JSON.parse(vm.getXMLtoJSON(response.body));
+                            //vm.history = JSON.parse(vm.getXMLtoJSON(response.body));
+                            vm.jobs.forEach(function (item) {
+                                var currenntUserName = item.Name.LastName + ', ' + item.Name.FirstName;
+                                var filterHistory = vm.history.RS.R.filter(function (his) {
+                                    return his.C0 == currenntUserName;
+                                });
+                                item.history = filterHistory;
+                                setTimeout(function () { vm.searchField = 'education'; }, 100);
+                            });
+                        });
+
+
+                    },
+
+                    getXMLtoJSON: function (xmlContent) {
+                        var x2js = new X2JS();
+                        return JSON.stringify(x2js.xml_str2json(xmlContent));
+                    },
+                    viewArticle: function (jobItem) {
+                        // console.log(this.currentUser);
+                        this.datesArticles = {};
+                        this.isDataLoaded = false;
+                        this.selectedJobForArticle = jobItem;
+                        this.currentUserName = jobItem.Name.LastName + ', ' + jobItem.Name.FirstName;
+                        vm.datesArticles[vm.currentUserName] = [];
+                        jobItem.history.forEach(function (item) {
+                            if (item.C0 == vm.currentUserName) {
+                                vm.datesArticles[vm.currentUserName].push({
+                                    slug: item.C0,
+                                    teaser: item.C4,
+                                    published_at: item.C5
+                                });
+                            }
+                        });
+                        vm.isDataLoaded = true;
+                        $('#articleModal').modal('show');
+                    },
+
+                    //this.getHistory();
+
+
+                    viewEdu: function (jobItem) {
+                        // console.log(this.currentUser);
+                        this.datesArticles2 = {};
+                        this.isDataLoaded2 = false;
+                        this.selectedJobForArticle2 = jobItem;
+                        this.currentUserName = jobItem.Name.LastName + ', ' + jobItem.Name.FirstName;
+                        vm.datesArticles2[vm.currentUserName] = [];
+                        jobItem.education.forEach(function (item) {
+                            if (item.C0 == vm.currentUserName) {
+                                vm.datesArticles2[vm.currentUserName].push({
+                                    slug: item.C0,
+                                    teaser: item.C4,
+                                    published_at: item.C5
+                                });
+                            }
+                        });
+                        vm.isDataLoaded2 = true;
+                        $('#articleModal').modal('show');
+                    },
+
+
+                    gotoJobs: function () {
+                        this.selectedJob = null;
+                    },
+                    gotoHistory: function () {
+                        this.selectedHistory = null;
+                    },
+                    gotoJobDetails: function () {
+                        this.showApplication = false;
+                    },
+                    viewAppplication: function (event) {
+
+                        this.showApplication2 = true;
+                        this.showApplication = false;
+                    },
+                    viewJob: function (item) {
+                        item = {
+                            Name: {
+                                FirstName: 'Priyesh',
+                                LastName: 'Shrivastava',
+                                JobTitle: 'Web Developer',
+                            },
+                            history: [
+                                { C0: 'zxcv', C4: 'Student', C5: '2015' },
+                                { C0: 'asdf', C4: 'Debunk', C5: '2017' },
+                                { C0: 'qwer', C4: 'Python', C5: '2018' },
+                                { C0: 'tyui', C4: 'Javascript', C5: '2019' },
+                                { C0: 'ghjk', C4: 'NodeJs', C5: '2020' },
+                            ],
+                            education: [
+                                { C0: 'Shrivastava, Priyesh', C4: 'School', C5: '2015' },
+                                { C0: 'Shrivastava, Priyesh', C4: 'College', C5: '2017' },
+                                { C0: 'Shrivastava, Priyesh', C4: 'Internship', C5: '2019' },
+                            ],
+                            OData__x0071_1: "",
+                            OData__x0071_3: "",
+                            
+                        }
+                         this.selectedJob = item;
+                    },
+                    updateCheckedDepartments: function (item) {
+                        this.checkedDepartments = item;
+                    },
+                    updateCheckedRole: function (item) {
+                        this.checkedLocations = item;
+                    },
+                    makeFolder: function (item) {
+                        Vue.set(item, 'children', [])
+                        //this.addItem(item)
+
+                    },
+                    updateEducation: function (education) {
+                        this.selectedEducation = education;
+                    },
+                    updateCertfication: function (certification) {
+                        this.selectedCertification = certification;
+                    },
+                    UpdateHistory: function (history) {
+                        this.selectedHistory = history;
+                    },
+                    getImgUrl: function (job) {
+                        return job && job.Name ? (this.root3 + job.Name.UserName) : "";
+                    },
+                    getImgBlankManUrl: function () {
+                        return this.root + 'cpathtool/img/doughboy.png';
+                    },
+                    toggleFeaturedItem: function (isfeatured) {
+
+                        this.showOnlyFeatured = isfeatured;
+                        localStorage.setItem('showOnlyFeatured', this.showOnlyFeatured);
+                        if (!vm.onlyUIChange)
+                            vm.fetchData2();
+
+                        else
+                            vm.onlyUIChange = false;
+                        setTimeout(function () { vm.searchField = ''; }, 100);
+                    },
+                    fetchListColumns: function fetchData() {
+                        var vm = this;
+                        $.ajax({
+                            url: this.root + "_api/web/lists/getbytitle('particpants2')/fields",
+                            type: 'Get',
+                            headers: { accept: "application/json;odata=verbose" },
+                            success: function (data) {
+                                data.d.results.forEach(function (column) {
+                                    if (column.Title.length <= 3 && column.Title.replace(/^\D+/g, '') != "") {
+                                        if (vm.dynamicFields == "") {
+                                            vm.dynamicFields = (column.StaticName.substring(0, 1) == '_' ? 'OData_' : '') + column.StaticName + ',';
+                                        }
+                                        else {
+                                            vm.dynamicFields = vm.dynamicFields + (column.StaticName.substring(0, 1) == '_' ? 'OData_' : '') + column.StaticName + ',';
+                                        }
+                                        vm.dynamicFieldTitle.push(column.Title);
+                                        vm.dynamicFieldDescription.push(column.Description);
+                                        console.log('Title: ' + column.Title + ', StaticName: ' + column.StaticName);
+                                    }
+                                });
+                                console.log(vm.dynamicFields)
+                                vm.fetchData2();
+                            }
+                        });
+                    },
+                    fetchData2: function fetchData2() {
+                        console.log('ekxxx');
+                        var headers = {
+                            accept: "application/json;odata=verbose"
+
+                        }
+                        var vm = this;
+                        if (localStorage.getItem('showOnlyFeatured')) {
+                            vm.showOnlyFeatured = JSON.parse(localStorage.getItem('showOnlyFeatured'));
+                            //setTimeout(function(){vm.searchField='';}, 100);
+                        }
+                        var url = this.root + "_api/web/lists/getbytitle('particpants2')/items?$select=" + vm.dynamicFields + "Title,Id,bio,videoLink,Featured,Name/Id,Name/Office,Name/FirstName,Name/LastName,Name/UserName,Name/JobTitle,Name/Department&$expand=Name/Id,Name/FirstName,Name/LastName,Name/UserName,Name/JobTitle,Name/Department&$orderby=Featured desc";
+                        if (vm.showOnlyFeatured)
+                            url = this.root + "_api/web/lists/getbytitle('particpants2')/items?$select=" + vm.dynamicFields + "Title,Id,bio,videoLink,Featured,Name/Id,Name/Office,Name/FirstName,Name/LastName,Name/UserName,Name/JobTitle,Name/Department&$expand=Name/Id,Name/FirstName,Name/LastName,Name/UserName,Name/JobTitle,Name/Department&$filter=Featured eq 1";
+
+                        $.ajax({
+                            url: url,
+                            type: 'Get',
+                            headers: headers,
+                            success: function (data) {
+                                console.log('ek');
+                                if (vm.jobs.length == 0 && !vm.showOnlyFeatured) {
+                                    vm.onlyUIChange = true;
+                                    setTimeout(function () {
+                                        $('.slider.round').click();
+                                    }, 100);
+                                }
+                                vm.jobs = data.d.results;
+                                var featured = $.grep(data.d.results, function (v) {
+                                    return v.Featured == true;
+                                });
+                                var dynamicFieldsArray = vm.dynamicFields.split(',');
+                                data.d.results.forEach(function (item) {
+                                    var cFieldValue = [];
+                                    vm.dynamicFieldTitle.forEach(function (col, index) {
+                                        if (col.substring(0, 1).toLowerCase() == 'c') {
+                                            var itemValue = item[dynamicFieldsArray[index]];
+                                            if (itemValue != null && !isNaN(itemValue))
+                                                cFieldValue.push({ 'desc': vm.dynamicFieldDescription[index], 'value': itemValue });
+                                        }
+                                    });
+                                    if (cFieldValue.length > 0) {
+                                        cFieldValue.sort(function (a, b) { return b.value - a.value; });
+                                        item.cFieldDescription = '';
+                                        cFieldValue.forEach(function (field) {
+                                            if (item.cFieldDescription == '')
+                                                item.cFieldDescription = field.desc;
+                                            //item.cFieldDescription = field.desc + ': ' + field.value;
+                                            else
+                                                item.cFieldDescription = item.cFieldDescription + '<br/>' + field.desc;
+                                            //item.cFieldDescription = item.cFieldDescription + '<br/>' + field.desc + field.value;
+                                        });
+                                    }
+                                    else
+                                        item.cFieldDescription = 'N/A';
+                                });
+                                console.log(data);
+
+                                vm.featureCount = featured.length;
+                                console.log(JSON.stringify(vm.jobs));
+                                vm.getEdu();
+                                vm.getHistory();
+                                vm.getCertification();
+
+                            }
+
+                        })
+                    },
+
+                },
+
+                computed: {
+                    filteredJobs: function filteredJobs() {
+                        var _this = this;
+                        console.log(_this.searchText, _this.searchField);
+                        console.log('_this', _this);
+
+                        var filterjobs = _this.jobs;
+                        //if (this.showOnlyFeatured) {
+                        //    filterjobs = $.grep(_this.jobs, function (v) {
+                        //        return v.Featured == true;
+                        //    });
+                        //}
+
+                        if (_this.checkedLocations.length > 0) {
+                            filterjobs = filterjobs.filter(function (l) {
+                                return _this.checkedLocations.indexOf(l.Name.JobTitle) >= 0;
+                            });
+                        }
+
+                        if (_this.checkedDepartments.length > 0) {
+                            filterjobs = filterjobs.filter(function (d) {
+                                return _this.checkedDepartments.indexOf(d.Name.Department) >= 0;
+                            });
+                        }
+
+                        if (_this.selectedLocation.length > 0) {
+                            filterjobs = filterjobs.filter(function (d) {
+                                return d.Locations && d.Locations.indexOf(_this.selectedLocation) >= 0;
+                            });
+                        }
+
+                        if (_this.selectedEducation.length > 0) {
+                            filterjobs = filterjobs.filter(function (d) {
+                                var filterEducation = d.education.filter(function (edu) {
+                                    return edu.C5 == _this.selectedEducation;
+                                });
+                                return filterEducation.length > 0;
+                            });
+                        }
+
+                        if (_this.selectedHistory.length > 0) {
+                            filterjobs = filterjobs.filter(function (d) {
+                                var filterHistory = d.history.filter(function (his) {
+                                    return his.C4 == _this.selectedHistory;
+                                });
+                                return filterHistory.length > 0;
+                            });
+                        }
+
+                        if (_this.selectedCertification.length > 0) {
+                            filterjobs = filterjobs.filter(function (d) {
+                                var filterCertification = d.certification.filter(function (cert) {
+                                    return cert.C4 == _this.selectedCertification;
+                                });
+                                return filterCertification.length > 0;
+                            });
+                        }
+
+
+
+                        //return filterjobs;
+                        if (_this.searchText != '') {
+                            switch (_this.searchField) {
+                                case 'job':
+                                    filterjobs = filterjobs.filter(function (d) {
+                                        return d.Name && d.Name.JobTitle && d.Name.JobTitle.toLowerCase().indexOf(_this.searchText.toLowerCase()) >= 0;
+                                    });
+                                    break;
+                                case 'education':
+                                    filterjobs = filterjobs.filter(function (d) {
+                                        var filterEducation = d.education.filter(function (edu) {
+                                            return edu.C5.toLowerCase().indexOf(_this.searchText.toLowerCase()) >= 0;
+                                        });
+
+                                        return filterEducation.length > 0;
+
+                                    });
+
+                                    break;
+                                case 'history':
+                                    filterjobs = filterjobs.filter(function (d) {
+                                        var filterHistory = d.history.filter(function (his) {
+                                            return his.C4.toLowerCase().indexOf(_this.searchText.toLowerCase()) >= 0;
+                                        });
+
+                                        return filterHistory.length > 0;
+                                    });
+
+                                    break;
+                                case 'certification':
+                                    filterjobs = filterjobs.filter(function (d) {
+                                        var filterCertification = d.certification.filter(function (his) {
+                                            return his.C4.toLowerCase().indexOf(_this.searchText.toLowerCase()) >= 0;
+                                        });
+
+                                        return filterCertification.length > 0;
+                                    });
+
+
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        return filterjobs;
+                    },
+                    totalPages: function () {
+                        return Math.ceil(this.resultCount / this.itemsPerPage);
+
+                    },
+                    paginate: function () {
+                        this.resultCount = this.filteredJobs.length;
+                        console.log(this.resultCount + " Result count");
+                        console.log(this.currentPage + " current page");
+                        console.log(this.itemsPerPage + " items per page");
+                        console.log(this.totalPages + " Total pages 2");
+                        if (this.currentPage >= this.totalPages) {
+                            this.currentPage = Math.max(0, this.totalPages - 1);
+                        }
+                        var index = this.currentPage * this.itemsPerPage;
+                        console.log(index + " index");
+                        console.log(this.filteredJobs.slice(index, index + this.itemsPerPage));
+                        return this.filteredJobs.slice(index, index + this.itemsPerPage);
+                    }
+
+                },
+                getValuFromObject: function (object) {
+                    if (object != null && object.results != null && object.results.length > 0)
+                        // return object.results[0];
+                        return object.results.join();
+                    else
+                        return '';
+                },
+
+
+            });
+
+
+
+            return {
+                vm: vm,
+
+            };
+
+        }(jQuery);
+                     //https://codepen.io/neil/pen/WjXrxx
+    </script>
+</body>
+</html>

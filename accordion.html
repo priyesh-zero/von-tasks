@@ -1,0 +1,174 @@
+<div :class="{'row': !printing}" v-if="selectedJob && !showApplication">
+  <div class="row">
+      <div class="col">
+          <a href="#" v-if="!printing" v-on:click="gotoJobs()">&#x27F5; Back</a>
+      </div>
+  </div>
+  <div :class="{ 'col-lg-12 col-md-12': !printing, 'printDiv': printing}" ref='element-to-print'>
+      <header>
+          <div class="logo">
+              <div v-else v-if="!printing">
+                  <img  class="circular-image2 photo" v-bind:src="getImgUrl(selectedJob)"/>
+              </div>
+          </div>
+          <div class="row align-items-baseline">
+              <div class="col-md-9 offset-3">
+                  <h2>An Interview With</h2>
+                  <h4>{{selectedJob.Name.FirstName}} {{selectedJob.Name.LastName}}</h4>
+              </div>
+          </div>
+      </header>
+      <section>
+          <div>
+              <div :class="{'col-9 offset-3': !printing, 'col-12': printing}">
+                  <h4 class="text-primary title">Background</h4>
+                  <div class="accordian" id="accordian1">
+                      <div class="card">
+                          <div class="card-header" id="headingOne">
+                              <div class="mb-0">
+                                  <button class="btn btn-link" type="button" data-toggle="collapse"
+                                      :class="{ 'show': printing }" v-bind:class="{ show: printing }"
+                                      data-target="#collapseOne" aria-controls="collapseOne">
+                                      Job Title at the time of interview
+                                  </button>
+                              </div>
+                          </div>
+                          <div id="collapseOne" class="collapse" :class="{ 'show': printing }"
+                              v-bind:class="{ show: printing }" aria-labelledby="headingOne"
+                              data-parent="#accordion1">
+                              <div class="card-body">
+                                  <p>{{selectedJob.Name.JobTitle}} interviewed November 2019</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card">
+                          <div class="card-header" id="headingTwo">
+                              <h2 class="mb-0">
+                                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                      data-target="#collapseTwo" aria-expanded="false"
+                                      aria-controls="collapseTwo" v-on:click="viewArticle(selectedJob)">
+                                      Work History
+                                  </button>
+                              </h2>
+                          </div>
+                          <div id="collapseTwo" class="collapse" :class="{ 'show': printing }"
+                              aria-labelledby="headingTwo" data-parent="#accordion1">
+                              <div class="card-body">
+                                  <blog-articles :dates-articles='datesArticles' v-if="isDataLoaded">
+                                  </blog-articles>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card">
+                          <div class="card-header" id="headingThree">
+                              <h2 class="mb-0">
+                                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                      data-target="#collapseThree" aria-expanded="false"
+                                      aria-controls="collapseThree" v-on:click="viewEdu(selectedJob)">
+                                      Education
+                                  </button>
+                              </h2>
+                          </div>
+                          <div id="collapseThree" class="collapse" :class="{ 'show': printing }"
+                              aria-labelledby="headingThree" data-parent="#accordion1">
+                              <div class="card-body">
+                                  <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2">
+                                  </blog-articles2>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <h4 class="title mt-4">Interview</h4>
+                  <div class="accordion" id="accordion2">
+                      <span v-if="selectedJob.Featured">
+                          <div class="card">
+                              <div class="card-header" id="headingFour">
+                                  <h2 class="mb-0">
+                                      <button class="btn btn-link" type="button" data-toggle="collapse"
+                                          data-target="#collapseFour" aria-controls="collapseFour">
+                                          Video Interview
+                                      </button>
+                                  </h2>
+                              </div>
+
+                              <div id="collapseFour" class="collapse" :class="{ 'show': printing }"
+                                  aria-labelledby="headingFour" data-parent="#accordion2">
+                                  <div class="card-body">
+                                      <a v-bind:href="selectedJob.vid" target="_blank">Watch Video</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </span>
+                      <span v-else>
+                          <div class="card">
+                              <div class="card-header" id="headingFive">
+                                  <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button"
+                                          data-toggle="collapse" data-target="#collapseFive"
+                                          aria-expanded="false" aria-controls="collapseFive">
+                                          Describe your business function
+                                      </button>
+                                  </h2>
+                              </div>
+                              <div id="collapseFive" class="collapse" :class="{ 'show': printing }"
+                                  aria-labelledby="headingFive" data-parent="#accordion2">
+                                  <div class="card-body">
+                                      <span v-html="selectedJob.OData__x0071_1">{{selectedJob.OData__x0071_1}}
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header" id="headingSix">
+                                  <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button"
+                                          data-toggle="collapse" data-target="#collapseSix"
+                                          aria-expanded="false" aria-controls="collapseSix">
+                                          Describe your role
+                                      </button>
+                                  </h2>
+                              </div>
+                              <div id="collapseSix" class="collapse" :class="{ 'show': printing }"
+                                  aria-labelledby="headingSix" data-parent="#accordion2">
+                                  <div class="card-body">
+                                      <div class="metabar">
+                                          <p v-if="checkHTML(selectedJob.OData__x0071_3)" class="xx">Q: What
+                                              are the
+                                              objectives of the role?</p>
+                                      </div><br>
+                                      <p v-if="checkHTML(selectedJob.OData__x0071_3)"
+                                          v-html="selectedJob.OData__x0071_3">
+                                          <br>{{selectedJob.OData__x0071_3}}</p>
+                                      <br>
+
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header" id="headingSeven">
+                                  <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button"
+                                          data-toggle="collapse" data-target="#collapseSeven"
+                                          aria-expanded="false" aria-controls="collapseSeven">
+                                          Describe the skills and knowledge needed for this role
+                                      </button>
+                                  </h2>
+                              </div>
+                              <div id="collapseSeven" class="collapse" :class="{ 'show': printing }"
+                                  aria-labelledby="headingThree" data-parent="#accordion1">
+                                  <div class="card-body">
+                                      <blog-articles2 :dates-articles2='datesArticles2' v-if="isDataLoaded2">
+                                      </blog-articles2>
+                                  </div>
+                              </div>
+                          </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
+  <div class="container"  v-if="selectedJob && !showApplication">
+      <div class="text-center alert alert-primary" v-if="printing">Printing Document Please Wait...</div>
+      <button style="display: block;margin: auto;" class="btn btn-primary" @click="HTMLToPdfOne()">Download As PDF</button>
+  </div>
+</div>
